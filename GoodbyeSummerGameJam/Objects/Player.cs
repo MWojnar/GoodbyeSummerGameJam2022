@@ -13,7 +13,7 @@ namespace GoodbyeSummerGameJam
 		public Player(World world, Vector2 pos = new Vector2()) : base(world, pos)
 		{
 			setSprite(this.world.Assets.SpritePlayerTest);
-			speed = 4;
+			speed = 2;
 		}
 
 		public override void update(GameTime time, StateHandler state)

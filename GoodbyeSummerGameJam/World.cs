@@ -13,7 +13,8 @@ namespace GoodbyeSummerGameJam
 		private SpriteBatch spriteBatch;
 		private List<Entity> entities, entitiesToAdd, entitiesToRemove;
 		private StateHandler stateHandler;
-		private int targetFrameRate;
+		private Matrix viewScaleMatrix;
+		private int targetFrameRate, viewScale;
 
 		public AssetManager Assets;
 
@@ -27,11 +28,16 @@ namespace GoodbyeSummerGameJam
 			entities = new List<Entity>();
 			entitiesToAdd = new List<Entity>();
 			entitiesToRemove = new List<Entity>();
+			viewScale = 5;
+			viewScaleMatrix = Matrix.CreateScale(viewScale, viewScale, 1);
 		}
 
 		protected override void Initialize()
 		{
 			base.Initialize();
+			graphics.PreferredBackBufferWidth = 1920;
+			graphics.PreferredBackBufferHeight = 1080;
+			graphics.ApplyChanges();
 			LoadLevel(0);
 		}
 
@@ -58,7 +64,7 @@ namespace GoodbyeSummerGameJam
 		protected override void Draw(GameTime gameTime)
 		{
 			GraphicsDevice.Clear(Color.CornflowerBlue);
-			spriteBatch.Begin();
+			spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: viewScaleMatrix);
 			base.Draw(gameTime);
 			foreach (Entity entity in entities)
 			{
@@ -111,7 +117,7 @@ namespace GoodbyeSummerGameJam
 
 		public Vector2 GetDimensions()
 		{
-			return new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+			return new Vector2(graphics.PreferredBackBufferWidth / viewScale, graphics.PreferredBackBufferHeight / viewScale);
 		}
 
 	}
