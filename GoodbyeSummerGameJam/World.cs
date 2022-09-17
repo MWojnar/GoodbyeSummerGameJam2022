@@ -64,7 +64,7 @@ namespace GoodbyeSummerGameJam
 		protected override void Draw(GameTime gameTime)
 		{
 			GraphicsDevice.Clear(Color.CornflowerBlue);
-			spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: viewScaleMatrix);
+			spriteBatch.Begin(SpriteSortMode.BackToFront, samplerState: SamplerState.PointClamp, transformMatrix: viewScaleMatrix);
 			base.Draw(gameTime);
 			foreach (Entity entity in entities)
 			{
@@ -86,7 +86,7 @@ namespace GoodbyeSummerGameJam
 			switch (level)
 			{
 				case 0: AddEntity(new Menu(this)); break;
-				case 1: AddEntity(new Player(this, GetDimensions() / 2)); break;
+				case 1: AddEntity(new Player(this, GetDimensions() / 2)); AddEntity(new Entity(this, GetDimensions() / 2, Assets.BackgroundPark, .75f)); break;
 			}
 		}
 

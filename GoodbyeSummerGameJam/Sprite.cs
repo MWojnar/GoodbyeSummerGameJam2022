@@ -39,7 +39,7 @@ namespace GoodbyeSummerGameJam
 			return new Vector2(origin.X, origin.Y);
 		}
 
-		public void draw(Vector2 pos, int depth = 0, int frame = 0, float rotation = 0, float scale = 1, Color? color = null)
+		public void draw(Vector2 pos, float depth = 0, int frame = 0, float rotation = 0, float scale = 1, Color? color = null)
 		{
 			frame %= frames;
 			Vector2 offset = new Vector2((frame % columns) * frameWidth, (frame / columns) * frameHeight);

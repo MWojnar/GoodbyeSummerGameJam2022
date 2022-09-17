@@ -13,16 +13,17 @@ namespace GoodbyeSummerGameJam
 		private Vector2 pos;
 		private Sprite sprite;
 		protected World world;
-		private int depth, animationFrameRate;
+		private int animationFrameRate;
+		private float depth;
 		private double animationTimer;
 
-		public Entity(World world, Vector2 pos = new Vector2())
+		public Entity(World world, Vector2 pos = new Vector2(), Sprite sprite = null, float depth = .5f, int animationFrameRate = 15)
 		{
 			this.world = world;
 			this.pos = pos;
-			sprite = null;
-			depth = 0;
-			animationFrameRate = 15;
+			this.sprite = sprite;
+			this.depth = depth;
+			this.animationFrameRate = animationFrameRate;
 		}
 
 		public void setSprite(Sprite sprite)
@@ -63,12 +64,12 @@ namespace GoodbyeSummerGameJam
 
 		}
 
-		public void setDepth(int depth)
+		public void setDepth(float depth)
 		{
 			this.depth = depth;
 		}
 
-		public int getDepth()
+		public float getDepth()
 		{
 			return depth;
 		}
