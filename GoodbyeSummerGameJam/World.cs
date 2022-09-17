@@ -10,6 +10,7 @@ namespace GoodbyeSummerGameJam
 		private GraphicsDeviceManager graphics;
 		private SpriteBatch spriteBatch;
 		private List<Entity> entities;
+		private StateHandler stateHandler;
 
 		public AssetManager Assets;
 
@@ -18,29 +19,33 @@ namespace GoodbyeSummerGameJam
 			graphics = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
 			IsMouseVisible = true;
+			stateHandler = new StateHandler();
 		}
 
 		protected override void Initialize()
 		{
 			base.Initialize();
 			entities = new List<Entity>();
+			entities.Add(new Player(this));
 		}
 
 		protected override void LoadContent()
 		{
 			spriteBatch = new SpriteBatch(GraphicsDevice);
-			AssetManager.Load();
+			Assets = new AssetManager(Content, spriteBatch);
+			Assets.Load();
 		}
 
 		protected override void Update(GameTime gameTime)
 		{
-			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+			stateHandler.reloadStates();
+			if (stateHandler.GamePadState[0].Buttons.Back == ButtonState.Pressed || stateHandler.KeyboardState.IsKeyDown(Keys.Escape))
 				Exit();
 
 			base.Update(gameTime);
 			foreach (Entity entity in entities)
 			{
-				entity.update(gameTime);
+				entity.update(gameTime, stateHandler);
 			}
 		}
 
@@ -56,5 +61,7 @@ namespace GoodbyeSummerGameJam
 			
 			spriteBatch.End();
 		}
+
+		
 	}
 }

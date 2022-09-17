@@ -10,7 +10,7 @@ namespace GoodbyeSummerGameJam
 
 		private Vector2 pos;
 		private Sprite sprite;
-		private World world;
+		protected World world;
 		private int depth, frameRate;
 		private double animationTimer;
 
@@ -81,12 +81,12 @@ namespace GoodbyeSummerGameJam
 			return frameRate;
 		}
 
-		public void update(GameTime time)
+		public virtual void update(GameTime time, StateHandler stateHandler)
 		{
 			
 		}
 
-		public void draw(GameTime time)
+		public virtual void draw(GameTime time)
 		{
 			animationTimer += time.ElapsedGameTime.TotalSeconds;
 			sprite?.draw(pos, depth, (int)(animationTimer * frameRate));
