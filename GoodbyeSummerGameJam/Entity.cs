@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,7 +13,7 @@ namespace GoodbyeSummerGameJam
 		private Vector2 pos;
 		private Sprite sprite;
 		protected World world;
-		private int depth, frameRate;
+		private int depth, animationFrameRate;
 		private double animationTimer;
 
 		public Entity(World world, Vector2 pos = new Vector2())
@@ -20,7 +22,7 @@ namespace GoodbyeSummerGameJam
 			this.pos = pos;
 			sprite = null;
 			depth = 0;
-			frameRate = 60;
+			animationFrameRate = 15;
 		}
 
 		public void setSprite(Sprite sprite)
@@ -71,25 +73,27 @@ namespace GoodbyeSummerGameJam
 			return depth;
 		}
 
-		public void setFrameRate(int frameRate)
+		public void setAnimationFrameRate(int frameRate)
 		{
-			this.frameRate = frameRate;
+			this.animationFrameRate = frameRate;
 		}
 
-		public int getFrameRate()
+		public int getAnimationFrameRate()
 		{
-			return frameRate;
+			return animationFrameRate;
 		}
 
-		public virtual void update(GameTime time, StateHandler stateHandler)
+		public virtual void update(GameTime time, StateHandler state)
 		{
 			
 		}
 
-		public virtual void draw(GameTime time)
+		public virtual void draw(GameTime time, SpriteBatch batch)
 		{
 			animationTimer += time.ElapsedGameTime.TotalSeconds;
-			sprite?.draw(pos, depth, (int)(animationTimer * frameRate));
+			sprite?.draw(pos, depth, (int)(animationTimer * animationFrameRate));
+			IShapeF test;
+			test.
 		}
 
 	}

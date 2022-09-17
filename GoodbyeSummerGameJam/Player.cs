@@ -16,17 +16,17 @@ namespace GoodbyeSummerGameJam
 			speed = 4;
 		}
 
-		public override void update(GameTime time, StateHandler stateHandler)
+		public override void update(GameTime time, StateHandler state)
 		{
-			base.update(time, stateHandler);
+			base.update(time, state);
 			float movement = (float)(speed * (time.ElapsedGameTime.TotalSeconds * 60));
-			if (stateHandler.KeyboardState.IsKeyDown(Keys.A))
+			if (state.KeyboardState.IsKeyDown(Keys.A))
 				addPos(-movement, 0);
-			if (stateHandler.KeyboardState.IsKeyDown(Keys.S))
+			if (state.KeyboardState.IsKeyDown(Keys.S))
 				addPos(0, movement);
-			if (stateHandler.KeyboardState.IsKeyDown(Keys.D))
+			if (state.KeyboardState.IsKeyDown(Keys.D))
 				addPos(movement, 0);
-			if (stateHandler.KeyboardState.IsKeyDown(Keys.W))
+			if (state.KeyboardState.IsKeyDown(Keys.W))
 				addPos(0, -movement);
 		}
 	}

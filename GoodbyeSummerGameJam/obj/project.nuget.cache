@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "wsbyLzuS7rVCI3OkfMiPfG3iFdhlYgS96VUxtes7W4SwhZof2cKW19Sr2Uuc3O3YmN2XkPd0gZx50wTmc+W9fg==",
+  "dgSpecHash": "MIOFJF+gLW3lJq9bOoku1gdAD2xsSA0pHU/2ZOiSFbgBa9++RBNBBYVtdcbUuBB/7VXrbbPMSh970274jVWyjw==",
   "success": true,
   "projectFilePath": "C:\\Users\\micha\\git\\repositories\\GoodbyeSummerGameJam\\GoodbyeSummerGameJam\\GoodbyeSummerGameJam.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\micha\\.nuget\\packages\\monogame.content.builder.task\\3.8.0.1641\\monogame.content.builder.task.3.8.0.1641.nupkg.sha512",
-    "C:\\Users\\micha\\.nuget\\packages\\monogame.framework.desktopgl\\3.8.0.1641\\monogame.framework.desktopgl.3.8.0.1641.nupkg.sha512"
+    "C:\\Users\\micha\\.nuget\\packages\\monogame.extended\\3.8.0\\monogame.extended.3.8.0.nupkg.sha512",
+    "C:\\Users\\micha\\.nuget\\packages\\monogame.framework.desktopgl\\3.8.0.1641\\monogame.framework.desktopgl.3.8.0.1641.nupkg.sha512",
+    "C:\\Users\\micha\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
   ],
   "logs": []
 }

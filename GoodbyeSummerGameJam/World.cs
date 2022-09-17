@@ -11,6 +11,7 @@ namespace GoodbyeSummerGameJam
 		private SpriteBatch spriteBatch;
 		private List<Entity> entities;
 		private StateHandler stateHandler;
+		private int targetFrameRate;
 
 		public AssetManager Assets;
 
@@ -20,6 +21,7 @@ namespace GoodbyeSummerGameJam
 			Content.RootDirectory = "Content";
 			IsMouseVisible = true;
 			stateHandler = new StateHandler();
+			targetFrameRate = 60;
 		}
 
 		protected override void Initialize()
@@ -56,12 +58,16 @@ namespace GoodbyeSummerGameJam
 			base.Draw(gameTime);
 			foreach (Entity entity in entities)
 			{
-				entity.draw(gameTime);
+				entity.draw(gameTime, spriteBatch);
 			}
 			
 			spriteBatch.End();
 		}
 
+		public int getTargetFrameRate()
+		{
+			return targetFrameRate;
+		}
 		
 	}
 }
