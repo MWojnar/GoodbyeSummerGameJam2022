@@ -80,7 +80,7 @@ namespace GoodbyeSummerGameJam
 			switch (level)
 			{
 				case 0: AddEntity(new Menu(this)); break;
-				case 1: AddEntity(new Player(this)); break;
+				case 1: AddEntity(new Player(this, GetDimensions() / 2)); break;
 			}
 		}
 
@@ -107,6 +107,11 @@ namespace GoodbyeSummerGameJam
 			foreach (Entity entity in entitiesToAdd)
 				entities.Add(entity);
 			entitiesToAdd.Clear();
+		}
+
+		public Vector2 GetDimensions()
+		{
+			return new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
 		}
 
 	}

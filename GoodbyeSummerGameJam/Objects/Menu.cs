@@ -25,6 +25,9 @@ namespace GoodbyeSummerGameJam.Objects
 		public override void draw(GameTime time, SpriteBatch batch)
 		{
 			base.draw(time, batch);
+			SpriteFont font = world.Assets.FontTest;
+			string displayString = "Click anywhere to continue";
+			batch.DrawString(world.Assets.FontTest, displayString, world.GetDimensions() / 2 - font.MeasureString(displayString) / 2, Color.Black);
 		}
 	}
 }

@@ -5,7 +5,9 @@ namespace GoodbyeSummerGameJam
 {
 	public class AssetManager
 	{
-		public Sprite spritePlayerTest;
+		public Sprite SpritePlayerTest;
+		public SpriteFont FontTest;
+
 		private ContentManager content;
 		private SpriteBatch batch;
 
@@ -16,7 +18,8 @@ namespace GoodbyeSummerGameJam
 		}
 		public void Load()
 		{
-			spritePlayerTest = new Sprite(batch, content.Load<Texture2D>("test"), 12);
+			SpritePlayerTest = new Sprite(batch, content.Load<Texture2D>("test"), 12);
+			FontTest = content.Load<SpriteFont>("testFont");
 		}
 	}
 }

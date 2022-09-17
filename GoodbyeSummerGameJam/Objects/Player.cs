@@ -12,7 +12,7 @@ namespace GoodbyeSummerGameJam
 
 		public Player(World world, Vector2 pos = new Vector2()) : base(world, pos)
 		{
-			setSprite(this.world.Assets.spritePlayerTest);
+			setSprite(this.world.Assets.SpritePlayerTest);
 			speed = 4;
 		}
 
