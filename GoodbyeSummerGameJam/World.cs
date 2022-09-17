@@ -1,6 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GoodbyeSummerGameJam.Objects;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 
 namespace GoodbyeSummerGameJam
@@ -9,7 +11,7 @@ namespace GoodbyeSummerGameJam
 	{
 		private GraphicsDeviceManager graphics;
 		private SpriteBatch spriteBatch;
-		private List<Entity> entities;
+		private List<Entity> entities, entitiesToAdd, entitiesToRemove;
 		private StateHandler stateHandler;
 		private int targetFrameRate;
 
@@ -22,13 +24,15 @@ namespace GoodbyeSummerGameJam
 			IsMouseVisible = true;
 			stateHandler = new StateHandler();
 			targetFrameRate = 60;
+			entities = new List<Entity>();
+			entitiesToAdd = new List<Entity>();
+			entitiesToRemove = new List<Entity>();
 		}
 
 		protected override void Initialize()
 		{
 			base.Initialize();
-			entities = new List<Entity>();
-			entities.Add(new Player(this));
+			LoadLevel(0);
 		}
 
 		protected override void LoadContent()
@@ -60,14 +64,50 @@ namespace GoodbyeSummerGameJam
 			{
 				entity.draw(gameTime, spriteBatch);
 			}
+			processEntityChanges();
 			
 			spriteBatch.End();
 		}
 
-		public int getTargetFrameRate()
+		public int GetTargetFrameRate()
 		{
 			return targetFrameRate;
 		}
-		
+
+		public void LoadLevel(int level)
+		{
+			ClearEntities();
+			switch (level)
+			{
+				case 0: AddEntity(new Menu(this)); break;
+				case 1: AddEntity(new Player(this)); break;
+			}
+		}
+
+		public void AddEntity(Entity entity)
+		{
+			entitiesToAdd.Add(entity);
+		}
+
+		public void RemoveEntity(Entity entity)
+		{
+			entitiesToRemove.Add(entity);
+		}
+
+		public void ClearEntities()
+		{
+			entitiesToRemove.AddRange(entities);
+		}
+
+		private void processEntityChanges()
+		{
+			foreach (Entity entity in entitiesToRemove)
+				entities.Remove(entity);
+			entitiesToRemove.Clear();
+			foreach (Entity entity in entitiesToAdd)
+				entities.Add(entity);
+			entitiesToAdd.Clear();
+		}
+
 	}
 }

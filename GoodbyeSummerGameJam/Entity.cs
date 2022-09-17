@@ -92,8 +92,6 @@ namespace GoodbyeSummerGameJam
 		{
 			animationTimer += time.ElapsedGameTime.TotalSeconds;
 			sprite?.draw(pos, depth, (int)(animationTimer * animationFrameRate));
-			IShapeF test;
-			test.
 		}
 
 	}
