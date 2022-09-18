@@ -8,7 +8,8 @@ namespace GoodbyeSummerGameJam
 	public class AssetManager
 	{
 		public Sprite SpritePlayerTest, SpriteTree, SpriteTreeBush1, SpriteTreeBush2, SpriteTreeBush3, SpriteLesserTreeBush1, SpriteLesserTreeBush2, SpriteLesserTreeBush3,
-			SpritePlayButton, SpriteInstructionsButton, SpriteCreditsButton, SpriteExitButton, SpriteInstructions, SpriteCredits;
+			SpritePlayButton, SpriteInstructionsButton, SpriteCreditsButton, SpriteExitButton, SpriteInstructions, SpriteCredits, SpritePlayer, SpritePlayerHoldBucket,
+			SpriteWorkbench, SpriteBucket, SpriteLeaf1, SpriteLeaf2, SpriteLeaf3, SpriteLeaf4, SpriteLeaf5;
 		public Sprite BackgroundPark, BackgroundTitleScreen;
 		public SpriteFont FontTest;
 		public Song Ambience;
@@ -24,6 +25,15 @@ namespace GoodbyeSummerGameJam
 		public void Load()
 		{
 			SpritePlayerTest = new Sprite(batch, content.Load<Texture2D>("test"), 12);
+			SpritePlayer = new Sprite(batch, content.Load<Texture2D>("spritePlayer"), 2);
+			SpritePlayerHoldBucket = new Sprite(batch, content.Load<Texture2D>("spritePlayerHoldBucket"), 2);
+			SpriteWorkbench = new Sprite(batch, content.Load<Texture2D>("spriteWorkbench"), 2);
+			SpriteBucket = new Sprite(batch, content.Load<Texture2D>("spriteBucket"));
+			SpriteLeaf1 = new Sprite(batch, content.Load<Texture2D>("spriteLeaf1"));
+			SpriteLeaf2 = new Sprite(batch, content.Load<Texture2D>("spriteLeaf2"));
+			SpriteLeaf3 = new Sprite(batch, content.Load<Texture2D>("spriteLeaf3"));
+			SpriteLeaf4 = new Sprite(batch, content.Load<Texture2D>("spriteLeaf4"));
+			SpriteLeaf5 = new Sprite(batch, content.Load<Texture2D>("spriteLeaf5"));
 			Texture2D textureTree = content.Load<Texture2D>("spriteTree");
 			SpriteTree = new Sprite(batch, textureTree, origin: new Vector2(textureTree.Width / 2.0f, textureTree.Height));
 			Texture2D textureTreeBush1 = content.Load<Texture2D>("spriteTreeBush1");
