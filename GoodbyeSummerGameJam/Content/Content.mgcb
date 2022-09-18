@@ -25,6 +25,12 @@
 /processorParam:TextureFormat=Color
 /build:bg_park.png;parkBackground.png
 
+#begin park-ambient-loop.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:park-ambient-loop.ogg;ambience.ogg
+
 #begin spr_DribbleFlipping_strip12.png
 /importer:TextureImporter
 /processor:TextureProcessor

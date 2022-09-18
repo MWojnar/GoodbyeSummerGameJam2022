@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 
@@ -38,6 +39,8 @@ namespace GoodbyeSummerGameJam
 			graphics.PreferredBackBufferWidth = 1920;
 			graphics.PreferredBackBufferHeight = 1080;
 			graphics.ApplyChanges();
+			MediaPlayer.IsRepeating = true;
+			MediaPlayer.Play(Assets.Ambience);
 			LoadLevel(0);
 		}
 
