@@ -39,11 +39,11 @@ namespace GoodbyeSummerGameJam
 			return new Vector2(origin.X, origin.Y);
 		}
 
-		public void draw(Vector2 pos, float depth = 0, int frame = 0, float rotation = 0, float scale = 1, Color? color = null)
+		public void draw(Vector2 pos, float depth = 0, int frame = 0, float rotation = 0, float scale = 1, Color? color = null, bool flip = false)
 		{
 			frame %= frames;
 			Vector2 offset = new Vector2((frame % columns) * frameWidth, (frame / columns) * frameHeight);
-			spriteBatch.Draw(texture, pos, new Rectangle((int)offset.X, (int)offset.Y, (int)frameWidth, (int)frameHeight), color.HasValue ? color.Value : Color.White, rotation, origin, scale, SpriteEffects.None, depth);
+			spriteBatch.Draw(texture, pos, new Rectangle((int)offset.X, (int)offset.Y, (int)frameWidth, (int)frameHeight), color.HasValue ? color.Value : Color.White, rotation, origin, scale, !flip ? SpriteEffects.None : SpriteEffects.FlipHorizontally, depth);
 		}
 
 		public float getWidth()

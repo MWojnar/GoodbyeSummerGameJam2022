@@ -16,14 +16,16 @@ namespace GoodbyeSummerGameJam
 		private int animationFrameRate;
 		private float depth;
 		private double animationTimer;
+		private bool flipped;
 
-		public Entity(World world, Vector2 pos = new Vector2(), Sprite sprite = null, float depth = .5f, int animationFrameRate = 15)
+		public Entity(World world, Vector2 pos = new Vector2(), Sprite sprite = null, float depth = .5f, int animationFrameRate = 15, bool flipped = false)
 		{
 			this.world = world;
 			this.pos = pos;
 			this.sprite = sprite;
 			this.depth = depth;
 			this.animationFrameRate = animationFrameRate;
+			this.flipped = flipped;
 		}
 
 		public void setSprite(Sprite sprite)
@@ -84,6 +86,16 @@ namespace GoodbyeSummerGameJam
 			return animationFrameRate;
 		}
 
+		public void setFlipped(bool flipped)
+		{
+			this.flipped = flipped;
+		}
+
+		public bool getFlipped()
+		{
+			return flipped;
+		}
+
 		public virtual void update(GameTime time, StateHandler state)
 		{
 			
@@ -92,7 +104,7 @@ namespace GoodbyeSummerGameJam
 		public virtual void draw(GameTime time, SpriteBatch batch)
 		{
 			animationTimer += time.ElapsedGameTime.TotalSeconds;
-			sprite?.draw(pos, depth, (int)(animationTimer * animationFrameRate));
+			sprite?.draw(pos, depth, (int)(animationTimer * animationFrameRate), flip: flipped);
 		}
 
 	}
