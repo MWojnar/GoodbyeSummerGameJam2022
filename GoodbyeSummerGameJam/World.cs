@@ -15,7 +15,7 @@ namespace GoodbyeSummerGameJam
 		private List<Entity> entities, entitiesToAdd, entitiesToRemove;
 		private StateHandler stateHandler;
 		private Matrix viewScaleMatrix;
-		private int targetFrameRate, viewScale;
+		private int targetFrameRate, viewScale, currentViewScale;
 
 		public AssetManager Assets;
 
@@ -30,6 +30,7 @@ namespace GoodbyeSummerGameJam
 			entitiesToAdd = new List<Entity>();
 			entitiesToRemove = new List<Entity>();
 			viewScale = 5;
+			currentViewScale = 5;
 			viewScaleMatrix = Matrix.CreateScale(viewScale, viewScale, 1);
 		}
 
@@ -88,9 +89,10 @@ namespace GoodbyeSummerGameJam
 			ClearEntities();
 			switch (level)
 			{
-				case 0: AddEntity(new Menu(this)); break;
-				case 1: /*AddEntity(new Player(this, GetDimensions() / 2)); */AddEntity(new Tree(this, GetDimensions() / 2 + new Vector2(-40, 35))); AddEntity(new Entity(this, GetDimensions() / 2, Assets.BackgroundPark, .75f)); break;
+				case 0: currentViewScale = 1; AddEntity(new Menu(this)); break;
+				case 1: currentViewScale = viewScale; /*AddEntity(new Player(this, GetDimensions() / 2)); */AddEntity(new Tree(this, GetDimensions() / 2 + new Vector2(-40, 35))); AddEntity(new Entity(this, GetDimensions() / 2, Assets.BackgroundPark, .75f)); break;
 			}
+			viewScaleMatrix = Matrix.CreateScale(currentViewScale, currentViewScale, 1);
 		}
 
 		public void AddEntity(Entity entity)
@@ -120,7 +122,7 @@ namespace GoodbyeSummerGameJam
 
 		public Vector2 GetDimensions()
 		{
-			return new Vector2(graphics.PreferredBackBufferWidth / viewScale, graphics.PreferredBackBufferHeight / viewScale);
+			return new Vector2(graphics.PreferredBackBufferWidth / currentViewScale, graphics.PreferredBackBufferHeight / currentViewScale);
 		}
 
 	}

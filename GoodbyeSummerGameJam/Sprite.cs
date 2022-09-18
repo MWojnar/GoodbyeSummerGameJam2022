@@ -46,5 +46,15 @@ namespace GoodbyeSummerGameJam
 			spriteBatch.Draw(texture, pos, new Rectangle((int)offset.X, (int)offset.Y, (int)frameWidth, (int)frameHeight), color.HasValue ? color.Value : Color.White, rotation, origin, scale, SpriteEffects.None, depth);
 		}
 
+		public float getWidth()
+		{
+			return frameWidth;
+		}
+
+		public float getHeight()
+		{
+			return frameHeight;
+		}
+
 	}
 }

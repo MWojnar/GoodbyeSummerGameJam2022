@@ -7,8 +7,9 @@ namespace GoodbyeSummerGameJam
 {
 	public class AssetManager
 	{
-		public Sprite SpritePlayerTest, SpriteTree, SpriteTreeBush1, SpriteTreeBush2, SpriteTreeBush3, SpriteLesserTreeBush1, SpriteLesserTreeBush2, SpriteLesserTreeBush3;
-		public Sprite BackgroundPark;
+		public Sprite SpritePlayerTest, SpriteTree, SpriteTreeBush1, SpriteTreeBush2, SpriteTreeBush3, SpriteLesserTreeBush1, SpriteLesserTreeBush2, SpriteLesserTreeBush3,
+			SpritePlayButton, SpriteInstructionsButton, SpriteCreditsButton, SpriteExitButton, SpriteInstructions, SpriteCredits;
+		public Sprite BackgroundPark, BackgroundTitleScreen;
 		public SpriteFont FontTest;
 		public Song Ambience;
 
@@ -37,6 +38,13 @@ namespace GoodbyeSummerGameJam
 			SpriteLesserTreeBush2 = new Sprite(batch, textureLesserTreeBush2, origin: new Vector2(textureLesserTreeBush2.Width / 2.0f, textureLesserTreeBush2.Height));
 			Texture2D textureLesserTreeBush3 = content.Load<Texture2D>("spriteLesserTreeBush3");
 			SpriteLesserTreeBush3 = new Sprite(batch, textureLesserTreeBush3, origin: new Vector2(textureLesserTreeBush3.Width / 2.0f, textureLesserTreeBush3.Height));
+			SpritePlayButton = new Sprite(batch, content.Load<Texture2D>("spritePlayButton"));
+			SpriteInstructionsButton = new Sprite(batch, content.Load<Texture2D>("spriteInstructionsButton"));
+			SpriteCreditsButton = new Sprite(batch, content.Load<Texture2D>("spriteCreditsButton"));
+			SpriteExitButton = new Sprite(batch, content.Load<Texture2D>("spriteExitButton"));
+			SpriteInstructions = new Sprite(batch, content.Load<Texture2D>("spriteInstructions"));
+			SpriteCredits = new Sprite(batch, content.Load<Texture2D>("spriteCredits"));
+			BackgroundTitleScreen = new Sprite(batch, content.Load<Texture2D>("titleScreenBackground"));
 			BackgroundPark = new Sprite(batch, content.Load<Texture2D>("parkBackground"));
 			FontTest = content.Load<SpriteFont>("testFont");
 			Ambience = content.Load<Song>("ambience");
