@@ -90,7 +90,11 @@ namespace GoodbyeSummerGameJam
 			switch (level)
 			{
 				case 0: currentViewScale = 1; AddEntity(new Menu(this)); break;
-				case 1: currentViewScale = viewScale; AddEntity(new Player(this, GetDimensions() / 2)); AddEntity(new Tree(this, GetDimensions() / 2 + new Vector2(-40, 35))); AddEntity(new Entity(this, GetDimensions() / 2, Assets.BackgroundPark, .75f)); break;
+				case 1: currentViewScale = viewScale;
+					AddEntity(new Player(this, GetDimensions() / 2));
+					AddEntity(new Workbench(this, new Vector2(GetDimensions().X / 2, 25)));
+					AddEntity(new Tree(this, GetDimensions() / 2 + new Vector2(-40, 35)));
+					AddEntity(new Entity(this, GetDimensions() / 2, Assets.BackgroundPark, .75f)); break;
 			}
 			viewScaleMatrix = Matrix.CreateScale(currentViewScale, currentViewScale, 1);
 		}
