@@ -15,12 +15,13 @@ namespace GoodbyeSummerGameJam
 		private Sprite sprite;
 		protected World world;
 		private List<RectangleF> collisionBoxes;
+		private Color? color;
 		private int animationFrameRate;
 		private float depth;
 		private double animationTimer;
 		private bool flipped, visible;
 
-		public Entity(World world, Vector2 pos = new Vector2(), Sprite sprite = null, float depth = .5f, int animationFrameRate = 15, bool flipped = false)
+		public Entity(World world, Vector2 pos = new Vector2(), Sprite sprite = null, float depth = .5f, int animationFrameRate = 15, bool flipped = false, Color? color = null)
 		{
 			this.world = world;
 			this.pos = pos;
@@ -28,6 +29,7 @@ namespace GoodbyeSummerGameJam
 			this.depth = depth;
 			this.animationFrameRate = animationFrameRate;
 			this.flipped = flipped;
+			this.color = color;
 			visible = true;
 			collisionBoxes = new List<RectangleF>();
 		}
@@ -113,6 +115,16 @@ namespace GoodbyeSummerGameJam
 			return visible;
 		}
 
+		public void setColor(Color? color)
+		{
+			this.color = color;
+		}
+
+		public Color? getColor()
+		{
+			return color;
+		}
+
 		public virtual void update(GameTime time, StateHandler state)
 		{
 			
@@ -123,7 +135,7 @@ namespace GoodbyeSummerGameJam
 			if (visible)
 			{
 				animationTimer += time.ElapsedGameTime.TotalSeconds;
-				sprite?.draw(pos, depth, (int)(animationTimer * animationFrameRate), flip: flipped);
+				sprite?.draw(pos, depth, (int)(animationTimer * animationFrameRate), color: color, flip: flipped);
 				/*if (sprite != null && collisionBoxes.Count > 0)
 				{
 					RectangleF collisionBox = new RectangleF((getPos() - sprite.getOrigin()) + collisionBoxes[0].TopLeft, collisionBoxes[0].Size);

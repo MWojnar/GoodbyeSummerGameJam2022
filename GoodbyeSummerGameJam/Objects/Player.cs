@@ -52,9 +52,13 @@ namespace GoodbyeSummerGameJam
 				{
 					if (!holdingBucket)
 					{
+						if (colliding(entity))
+						{
+							((Bucket)entity).hover();
+						}
 						if (state.KeyboardState.IsKeyDown(Keys.Space) && entity.isVisible() && colliding(entity))
 						{
-							pickupBucket((Bucket)entity, world.GetPalletes()[1]);
+							PickupBucket((Bucket)entity, world.GetPalletes()[1]);
 						}
 					}
 					else if ((bucketEmpty || state.KeyboardState.IsKeyDown(Keys.Enter)) && !entity.isVisible() && colliding(entity))
@@ -80,7 +84,7 @@ namespace GoodbyeSummerGameJam
 				setSprite(world.Assets.SpritePlayer);
 		}
 
-		private void pickupBucket(Bucket bucket, Pallete pallete)
+		public void PickupBucket(Bucket bucket, Pallete pallete)
 		{
 			bucketPallete = pallete;
 			holdingBucket = true;

@@ -9,7 +9,8 @@ namespace GoodbyeSummerGameJam
 	{
 		public Sprite SpritePlayerTest, SpriteTree, SpriteTreeBush1, SpriteTreeBush2, SpriteTreeBush3, SpriteLesserTreeBush1, SpriteLesserTreeBush2, SpriteLesserTreeBush3,
 			SpritePlayButton, SpriteInstructionsButton, SpriteCreditsButton, SpriteExitButton, SpriteInstructions, SpriteCredits, SpritePlayer, SpritePlayerHoldBucket,
-			SpriteWorkbench, SpriteBucket, SpriteBucketPaint1, SpriteBucketPaint2, SpriteBucketPaint3, SpriteLeaf1, SpriteLeaf2, SpriteLeaf3, SpriteLeaf4, SpriteLeaf5;
+			SpriteWorkbench, SpriteBucket, SpriteBucketPaint1, SpriteBucketPaint2, SpriteBucketPaint3, SpriteLeaf1, SpriteLeaf2, SpriteLeaf3, SpriteLeaf4, SpriteLeaf5,
+			SpriteColorWheel1, SpriteColorWheel2, SpriteColorWheel3, SpriteColorWheel4, SpriteColorWheel5, SpriteColorWheel6, SpriteColorWheel7, SpriteColorWheel8;
 		public Sprite BackgroundPark, BackgroundTitleScreen;
 		public SpriteFont FontTest;
 		public Song Ambience;
@@ -37,6 +38,14 @@ namespace GoodbyeSummerGameJam
 			SpriteLeaf3 = new Sprite(batch, content.Load<Texture2D>("spriteLeaf3"));
 			SpriteLeaf4 = new Sprite(batch, content.Load<Texture2D>("spriteLeaf4"));
 			SpriteLeaf5 = new Sprite(batch, content.Load<Texture2D>("spriteLeaf5"));
+			SpriteColorWheel1 = new Sprite(batch, content.Load<Texture2D>("spriteColorWheel1"));
+			SpriteColorWheel2 = new Sprite(batch, content.Load<Texture2D>("spriteColorWheel2"));
+			SpriteColorWheel3 = new Sprite(batch, content.Load<Texture2D>("spriteColorWheel3"));
+			SpriteColorWheel4 = new Sprite(batch, content.Load<Texture2D>("spriteColorWheel4"));
+			SpriteColorWheel5 = new Sprite(batch, content.Load<Texture2D>("spriteColorWheel5"));
+			SpriteColorWheel6 = new Sprite(batch, content.Load<Texture2D>("spriteColorWheel6"));
+			SpriteColorWheel7 = new Sprite(batch, content.Load<Texture2D>("spriteColorWheel7"));
+			SpriteColorWheel8 = new Sprite(batch, content.Load<Texture2D>("spriteColorWheel8"));
 			Texture2D textureTree = content.Load<Texture2D>("spriteTree");
 			SpriteTree = new Sprite(batch, textureTree, origin: new Vector2(textureTree.Width / 2.0f, textureTree.Height));
 			Texture2D textureTreeBush1 = content.Load<Texture2D>("spriteTreeBush1");

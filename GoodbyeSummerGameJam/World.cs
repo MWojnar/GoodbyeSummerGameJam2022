@@ -105,12 +105,23 @@ namespace GoodbyeSummerGameJam
 			{
 				case 0: currentViewScale = 1; AddEntity(new Menu(this)); break;
 				case 1: currentViewScale = viewScale;
-					AddEntity(new Player(this, GetDimensions() / 2));
-					AddEntity(new Workbench(this, new Vector2(GetDimensions().X / 2, 25)));
+					Player player = new Player(this, GetDimensions() / 2);
+					AddEntity(player);
+					Workbench bench = new Workbench(this, new Vector2(GetDimensions().X / 2, 25));
+					AddEntity(bench);
 					AddEntity(new Tree(this, GetDimensions() / 2 + new Vector2(-40, 35)));
-					AddEntity(new Entity(this, GetDimensions() / 2, Assets.BackgroundPark, .75f)); break;
+					AddEntity(new Entity(this, GetDimensions() / 2, Assets.BackgroundPark, .75f));
+					break;
 			}
 			viewScaleMatrix = Matrix.CreateScale(currentViewScale, currentViewScale, 1);
+		}
+
+		public Player GetPlayer()
+		{
+			foreach (Entity entity in entities)
+				if (entity is Player)
+					return (Player)entity;
+			return null;
 		}
 
 		public void AddEntity(Entity entity)
