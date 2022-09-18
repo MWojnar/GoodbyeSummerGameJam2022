@@ -13,6 +13,7 @@ namespace GoodbyeSummerGameJam
 		private GraphicsDeviceManager graphics;
 		private SpriteBatch spriteBatch;
 		private List<Entity> entities, entitiesToAdd, entitiesToRemove;
+		private List<Pallete> palletes;
 		private StateHandler stateHandler;
 		private Matrix viewScaleMatrix;
 		private int targetFrameRate, viewScale, currentViewScale;
@@ -32,6 +33,14 @@ namespace GoodbyeSummerGameJam
 			viewScale = 5;
 			currentViewScale = 5;
 			viewScaleMatrix = Matrix.CreateScale(viewScale, viewScale, 1);
+			palletes = new List<Pallete>() { new Pallete(new Dictionary<Color, int>() { { new Color(31, 104, 39), 1 }, { new Color(39, 128, 31), 1 }, { new Color(59, 148, 31), 1 } }),
+			new Pallete(new Dictionary<Color, int>() { { new Color(101, 154, 40), 1 }, { new Color(92, 196, 26), 1 }, { new Color(140, 193, 45), 1 } }),
+			new Pallete(new Dictionary<Color, int>() { { new Color(128, 84, 17), 1 }, { new Color(151, 122, 28), 1 }, { new Color(166, 153, 22), 1 } }),
+			new Pallete(new Dictionary<Color, int>() { { new Color(151, 36, 23), 1 }, { new Color(145, 72, 32), 1 }, { new Color(166, 100, 32), 1 } }),
+			new Pallete(new Dictionary<Color, int>() { { new Color(31, 47, 128), 1 }, { new Color(37, 85, 139), 1 }, { new Color(36, 134, 163), 1 } }),
+			new Pallete(new Dictionary<Color, int>() { { new Color(110, 18, 116), 1 }, { new Color(145, 31, 112), 1 }, { new Color(196, 48, 107), 1 } }),
+			new Pallete(new Dictionary<Color, int>() { { new Color(31, 47, 128), 1 }, { new Color(151, 36, 23), 1 }, { new Color(31, 104, 39), 1 } }),
+			new Pallete(new Dictionary<Color, int>() { { new Color(196, 48, 107), 1 }, { new Color(36, 134, 163), 1 }, { new Color(92, 196, 26), 1 } }), };
 		}
 
 		protected override void Initialize()
@@ -43,6 +52,11 @@ namespace GoodbyeSummerGameJam
 			MediaPlayer.IsRepeating = true;
 			MediaPlayer.Play(Assets.Ambience);
 			LoadLevel(0);
+		}
+
+		internal List<Entity> GetEntities()
+		{
+			return entities;
 		}
 
 		protected override void LoadContent()
@@ -127,6 +141,11 @@ namespace GoodbyeSummerGameJam
 		public Vector2 GetDimensions()
 		{
 			return new Vector2(graphics.PreferredBackBufferWidth / currentViewScale, graphics.PreferredBackBufferHeight / currentViewScale);
+		}
+
+		public List<Pallete> GetPalletes()
+		{
+			return palletes;
 		}
 
 	}

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GoodbyeSummerGameJam.Objects;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 using System;
@@ -13,10 +14,11 @@ namespace GoodbyeSummerGameJam
 		private Vector2 pos;
 		private Sprite sprite;
 		protected World world;
+		private List<RectangleF> collisionBoxes;
 		private int animationFrameRate;
 		private float depth;
 		private double animationTimer;
-		private bool flipped;
+		private bool flipped, visible;
 
 		public Entity(World world, Vector2 pos = new Vector2(), Sprite sprite = null, float depth = .5f, int animationFrameRate = 15, bool flipped = false)
 		{
@@ -26,12 +28,18 @@ namespace GoodbyeSummerGameJam
 			this.depth = depth;
 			this.animationFrameRate = animationFrameRate;
 			this.flipped = flipped;
+			visible = true;
+			collisionBoxes = new List<RectangleF>();
 		}
 
 		public void setSprite(Sprite sprite)
 		{
-			this.sprite = sprite;
-			animationTimer = 0;
+			if (this.sprite != sprite)
+			{
+				this.sprite = sprite;
+				animationTimer = 0;
+				setCollisionBox(new RectangleF(new Vector2(), new Size2(sprite.getWidth(), sprite.getHeight())));
+			}
 		}
 
 		public Sprite getSprite()
@@ -63,7 +71,6 @@ namespace GoodbyeSummerGameJam
 		public Vector2 getPos()
 		{
 			return new Vector2(pos.X, pos.Y);
-
 		}
 
 		public void setDepth(float depth)
@@ -96,6 +103,16 @@ namespace GoodbyeSummerGameJam
 			return flipped;
 		}
 
+		public void setVisible(bool visible)
+		{
+			this.visible = visible;
+		}
+
+		public bool isVisible()
+		{
+			return visible;
+		}
+
 		public virtual void update(GameTime time, StateHandler state)
 		{
 			
@@ -103,8 +120,54 @@ namespace GoodbyeSummerGameJam
 
 		public virtual void draw(GameTime time, SpriteBatch batch)
 		{
-			animationTimer += time.ElapsedGameTime.TotalSeconds;
-			sprite?.draw(pos, depth, (int)(animationTimer * animationFrameRate), flip: flipped);
+			if (visible)
+			{
+				animationTimer += time.ElapsedGameTime.TotalSeconds;
+				sprite?.draw(pos, depth, (int)(animationTimer * animationFrameRate), flip: flipped);
+				/*if (sprite != null && collisionBoxes.Count > 0)
+				{
+					RectangleF collisionBox = new RectangleF((getPos() - sprite.getOrigin()) + collisionBoxes[0].TopLeft, collisionBoxes[0].Size);
+					batch.DrawRectangle(collisionBox, Color.Red);
+				}*/
+			}
+		}
+
+		public void setCollisionBoxes(List<RectangleF> collisionBoxes)
+		{
+			if (collisionBoxes != null)
+			{
+				this.collisionBoxes.Clear();
+				this.collisionBoxes.AddRange(collisionBoxes);
+			}
+		}
+
+		public void setCollisionBox(RectangleF collisionBox)
+		{
+			if (collisionBox != null)
+			{
+				collisionBoxes.Clear();
+				collisionBoxes.Add(collisionBox);
+			}
+		}
+
+		public List<RectangleF> getCollisionBoxes()
+		{
+			return new List<RectangleF>(collisionBoxes);
+		}
+
+		public bool colliding(Entity entity)
+		{
+			foreach (RectangleF sourceCollisionBox in collisionBoxes)
+			{
+				RectangleF collisionBox = new RectangleF((getPos() - sprite.getOrigin()) + sourceCollisionBox.TopLeft, sourceCollisionBox.Size);
+				foreach (RectangleF sourceCollideeBox in entity.collisionBoxes)
+				{
+					RectangleF collideeBox = new RectangleF((entity.getPos() - entity.sprite.getOrigin()) + sourceCollideeBox.TopLeft, sourceCollideeBox.Size);
+					if (collisionBox.Intersects(collideeBox))
+						return true;
+				}
+			}
+			return false;
 		}
 
 	}

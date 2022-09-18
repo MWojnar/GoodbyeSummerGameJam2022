@@ -11,6 +11,8 @@ namespace GoodbyeSummerGameJam.Objects
 		{
 			setSprite(world.Assets.SpriteWorkbench);
 			setAnimationFrameRate(5);
+			setDepth(.55f);
+			world.AddEntity(new Bucket(world, getPos() - new Vector2(40, 14)));
 		}
 	}
 }
