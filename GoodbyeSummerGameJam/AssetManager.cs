@@ -10,7 +10,8 @@ namespace GoodbyeSummerGameJam
 		public Sprite SpritePlayerTest, SpriteTree, SpriteTreeBush1, SpriteTreeBush2, SpriteTreeBush3, SpriteLesserTreeBush1, SpriteLesserTreeBush2, SpriteLesserTreeBush3,
 			SpritePlayButton, SpriteInstructionsButton, SpriteCreditsButton, SpriteExitButton, SpriteInstructions, SpriteCredits, SpritePlayer, SpritePlayerHoldBucket,
 			SpriteWorkbench, SpriteBucket, SpriteBucketPaint1, SpriteBucketPaint2, SpriteBucketPaint3, SpriteLeaf1, SpriteLeaf2, SpriteLeaf3, SpriteLeaf4, SpriteLeaf5,
-			SpriteColorWheel1, SpriteColorWheel2, SpriteColorWheel3, SpriteColorWheel4, SpriteColorWheel5, SpriteColorWheel6, SpriteColorWheel7, SpriteColorWheel8;
+			SpriteColorWheel1, SpriteColorWheel2, SpriteColorWheel3, SpriteColorWheel4, SpriteColorWheel5, SpriteColorWheel6, SpriteColorWheel7, SpriteColorWheel8,
+			SpriteBush, SpriteBushBerries, SpriteBushGrass, SpritePlayerShake, SpriteCloud, SpriteSun, SpriteWateringCan, SpritePumpkin1, SpritePumpkin2;
 		public Sprite BackgroundPark, BackgroundTitleScreen;
 		public SpriteFont FontTest;
 		public Song Ambience;
@@ -28,7 +29,16 @@ namespace GoodbyeSummerGameJam
 			SpritePlayerTest = new Sprite(batch, content.Load<Texture2D>("test"), 12);
 			SpritePlayer = new Sprite(batch, content.Load<Texture2D>("spritePlayer"), 2);
 			SpritePlayerHoldBucket = new Sprite(batch, content.Load<Texture2D>("spritePlayerHoldBucket"), 2);
+			SpritePlayerShake = new Sprite(batch, content.Load<Texture2D>("spritePlayerShake"), 2);
 			SpriteWorkbench = new Sprite(batch, content.Load<Texture2D>("spriteWorkbench"), 2);
+			SpriteBush = new Sprite(batch, content.Load<Texture2D>("spriteBush"));
+			SpriteBushBerries = new Sprite(batch, content.Load<Texture2D>("spriteBushBerries"));
+			SpriteBushGrass = new Sprite(batch, content.Load<Texture2D>("spriteBushGrass"));
+			SpriteCloud = new Sprite(batch, content.Load<Texture2D>("spriteCloud"));
+			SpriteSun = new Sprite(batch, content.Load<Texture2D>("spriteSun"));
+			SpriteWateringCan = new Sprite(batch, content.Load<Texture2D>("spriteWateringCan"));
+			SpritePumpkin1 = new Sprite(batch, content.Load<Texture2D>("spritePumpkin1"));
+			SpritePumpkin2 = new Sprite(batch, content.Load<Texture2D>("spritePumpkin2"));
 			SpriteBucket = new Sprite(batch, content.Load<Texture2D>("spriteBucket"));
 			SpriteBucketPaint1 = new Sprite(batch, content.Load<Texture2D>("spriteBucketPaint1"));
 			SpriteBucketPaint2 = new Sprite(batch, content.Load<Texture2D>("spriteBucketPaint2"));
