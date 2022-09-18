@@ -247,6 +247,42 @@
 /processorParam:TextureFormat=Color
 /build:spr_bucket_paint3.png;spriteBucketPaint3.png
 
+#begin spr_bush.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:spr_bush.png;spriteBush.png
+
+#begin spr_bush_berries.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:spr_bush_berries.png;spriteBushBerries.png
+
+#begin spr_bush_grass.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:spr_bush_grass.png;spriteBushGrass.png
+
 #begin spr_bushel1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -318,6 +354,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:spr_bushel3_lesser.png;spriteLesserTreeBush3.png
+
+#begin spr_cloud.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:spr_cloud.png;spriteCloud.png
 
 #begin spr_DribbleFlipping_strip12.png
 /importer:TextureImporter
@@ -403,6 +451,18 @@
 /processorParam:TextureFormat=Color
 /build:spr_pixie_bucket_strip2.png;spritePlayerHoldBucket.png
 
+#begin spr_pixie_shake_strip2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:spr_pixie_shake_strip2.png;spritePlayerShake.png
+
 #begin spr_pixie_strip2.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -415,6 +475,42 @@
 /processorParam:TextureFormat=Color
 /build:spr_pixie_strip2.png;spritePlayer.png
 
+#begin spr_pumpkin1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:spr_pumpkin1.png;spritePumpkin1.png
+
+#begin spr_pumpkin2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:spr_pumpkin2.png;spritePumpkin2.png
+
+#begin spr_sun.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:spr_sun.png;spriteSun.png
+
 #begin spr_tree.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -426,6 +522,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:spr_tree.png;spriteTree.png
+
+#begin spr_watering_can.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:spr_watering_can.png;spriteWateringCan.png
 
 #begin spr_workbench_strip2.png
 /importer:TextureImporter
@@ -457,4 +565,22 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:TitleScreen.png;titleScreenBackground.png
+
+#begin tree-shake.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:tree-shake.ogg;soundTreeShake.ogg
+
+#begin wind-short.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:wind-short.ogg;soundWind1.ogg
+
+#begin wind-short-2.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:wind-short-2.ogg;soundWind2.ogg
 

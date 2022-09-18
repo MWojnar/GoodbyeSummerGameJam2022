@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
@@ -15,6 +16,7 @@ namespace GoodbyeSummerGameJam
 		public Sprite BackgroundPark, BackgroundTitleScreen;
 		public SpriteFont FontTest;
 		public Song Ambience;
+		public SoundEffect SoundTreeShake, SoundWind1, SoundWind2;
 
 		private ContentManager content;
 		private SpriteBatch batch;
@@ -79,7 +81,12 @@ namespace GoodbyeSummerGameJam
 			BackgroundTitleScreen = new Sprite(batch, content.Load<Texture2D>("titleScreenBackground"));
 			BackgroundPark = new Sprite(batch, content.Load<Texture2D>("parkBackground"));
 			FontTest = content.Load<SpriteFont>("testFont");
+
 			Ambience = content.Load<Song>("ambience");
+
+			SoundTreeShake = content.Load<SoundEffect>("soundTreeShake");
+			SoundWind1 = content.Load<SoundEffect>("soundWind1");
+			SoundWind2 = content.Load<SoundEffect>("soundWind2");
 		}
 	}
 }
