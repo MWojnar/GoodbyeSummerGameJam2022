@@ -35,5 +35,10 @@ namespace GoodbyeSummerGameJam
 			}
 			return colorsAndWeights.Keys.First();
 		}
+
+		public int Count()
+		{
+			return colorsAndWeights.Count();
+		}
 	}
 }
