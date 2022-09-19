@@ -22,5 +22,11 @@ namespace GoodbyeSummerGameJam.Objects
 		{
 			return bucket;
 		}
+
+		public void endLevel()
+		{
+			setVisible(false);
+			bucket.setVisible(false);
+		}
 	}
 }

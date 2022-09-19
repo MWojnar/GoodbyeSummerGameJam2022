@@ -13,10 +13,11 @@ namespace GoodbyeSummerGameJam
 	{
 		private int speed;
 		private double animationTimer, gameTimer, maxGameTime;
-		private bool holdingBucket, bucketEmpty;
+		private bool holdingBucket, bucketEmpty, ended, mouseDown;
 		private Pallete bucketPallete;
+		private Workbench bench;
 
-		public Player(World world, Vector2 pos = new Vector2()) : base(world, pos)
+		public Player(World world, Workbench bench, Vector2 pos = new Vector2()) : base(world, pos)
 		{
 			setSprite(this.world.Assets.SpritePlayer);
 			speed = 2;
@@ -28,78 +29,87 @@ namespace GoodbyeSummerGameJam
 			holdingBucket = false;
 			bucketPallete = null;
 			bucketEmpty = false;
+			ended = false;
+			this.bench = bench;
+			mouseDown = false;
 		}
 
 		public override void update(GameTime time, StateHandler state)
 		{
 			base.update(time, state);
 
-			if (gameTimer == -1)
-				gameTimer = time.TotalGameTime.TotalSeconds;
-			if (maxGameTime < time.TotalGameTime.TotalSeconds - gameTimer)
-				endLevel();
-			bool shaking = false;
-			float movement = (float)(speed * (time.ElapsedGameTime.TotalSeconds * 60));
-			if (state.KeyboardState.IsKeyDown(Keys.A))
+			if (!ended)
 			{
-				addPos(-movement, 0);
-				setFlipped(false);
-			}
-			if (state.KeyboardState.IsKeyDown(Keys.S))
-				addPos(0, movement);
-			if (state.KeyboardState.IsKeyDown(Keys.D))
-			{
-				addPos(movement, 0);
-				setFlipped(true);
-			}
-			if (state.KeyboardState.IsKeyDown(Keys.W))
-				addPos(0, -movement);
-			foreach (Entity entity in world.GetEntities())
-			{
-				if (entity is Bucket)
+				if (gameTimer == -1)
+					gameTimer = time.TotalGameTime.TotalSeconds;
+				if (maxGameTime < time.TotalGameTime.TotalSeconds - gameTimer)
+					endLevel();
+				bool shaking = false;
+				float movement = (float)(speed * (time.ElapsedGameTime.TotalSeconds * 60));
+				if (state.KeyboardState.IsKeyDown(Keys.A))
 				{
-					if (!holdingBucket)
-					{
-						if (colliding(entity))
-						{
-							((Bucket)entity).hover();
-						}
-						if (state.KeyboardState.IsKeyDown(Keys.Space) && entity.isVisible() && colliding(entity))
-						{
-							PickupBucket((Bucket)entity, world.GetPalletes()[1]);
-						}
-					}
-					else if ((bucketEmpty || state.KeyboardState.IsKeyDown(Keys.Enter)) && !entity.isVisible() && colliding(entity))
-					{
-						dropBucket((Bucket)entity);
-					}
+					addPos(-movement, 0);
+					setFlipped(false);
 				}
-				else if (entity is Tree)
+				if (state.KeyboardState.IsKeyDown(Keys.S))
+					addPos(0, movement);
+				if (state.KeyboardState.IsKeyDown(Keys.D))
 				{
-					if (state.KeyboardState.IsKeyDown(Keys.Space) && colliding(entity))
+					addPos(movement, 0);
+					setFlipped(true);
+				}
+				if (state.KeyboardState.IsKeyDown(Keys.W))
+					addPos(0, -movement);
+				foreach (Entity entity in world.GetEntities())
+				{
+					if (entity is Bucket)
 					{
-						if (holdingBucket)
+						if (!holdingBucket)
 						{
-							if (((Tree)entity).Colorable(bucketPallete) && !bucketEmpty)
+							if (colliding(entity))
 							{
-								((Tree)entity).Colorify(bucketPallete);
-								bucketEmpty = true;
+								((Bucket)entity).hover();
 							}
 						}
-						else
+						else if ((bucketEmpty || state.KeyboardState.IsKeyDown(Keys.Enter)) && !entity.isVisible() && colliding(entity))
 						{
-							shaking = true;
-							((Tree)entity).shake(time.TotalGameTime.TotalSeconds);
+							dropBucket((Bucket)entity);
+						}
+					}
+					else if (entity is Tree)
+					{
+						if (state.KeyboardState.IsKeyDown(Keys.Space) && colliding(entity))
+						{
+							if (holdingBucket)
+							{
+								if (((Tree)entity).Colorable(bucketPallete) && !bucketEmpty)
+								{
+									((Tree)entity).Colorify(bucketPallete);
+									bucketEmpty = true;
+								}
+							}
+							else
+							{
+								shaking = true;
+								((Tree)entity).shake(time.TotalGameTime.TotalSeconds);
+							}
 						}
 					}
 				}
+				if (holdingBucket)
+					setSprite(world.Assets.SpritePlayerHoldBucket);
+				else if (shaking)
+					setSprite(world.Assets.SpritePlayerShake);
+				else
+					setSprite(world.Assets.SpritePlayer);
 			}
-			if (holdingBucket)
-				setSprite(world.Assets.SpritePlayerHoldBucket);
-			else if (shaking)
-				setSprite(world.Assets.SpritePlayerShake);
 			else
-				setSprite(world.Assets.SpritePlayer);
+			{
+				if (state.MouseState.LeftButton == ButtonState.Pressed)
+					mouseDown = true;
+				else if (mouseDown)
+					world.LoadLevel(0);
+			}
 		}
 
 		public void PickupBucket(Bucket bucket, Pallete pallete)
@@ -118,35 +128,47 @@ namespace GoodbyeSummerGameJam
 
 		public override void draw(GameTime time, SpriteBatch batch)
 		{
-			animationTimer += time.ElapsedGameTime.TotalSeconds;
-			int currentFrame = (int)(animationTimer * getAnimationFrameRate());
-			getSprite()?.draw(getPos(), getDepth(), currentFrame, flip: getFlipped());
-			if (holdingBucket)
+			if (!ended)
 			{
-				Vector2 bucketPos = getPos() - new Vector2(14 - (getFlipped() ? 28 : 0), -12 - currentFrame % 2);
-				world.Assets.SpriteBucket.draw(bucketPos, getDepth());
-				if (!bucketEmpty)
+				animationTimer += time.ElapsedGameTime.TotalSeconds;
+				int currentFrame = (int)(animationTimer * getAnimationFrameRate());
+				getSprite()?.draw(getPos(), getDepth(), currentFrame, flip: getFlipped());
+				if (holdingBucket)
 				{
-					world.Assets.SpriteBucketPaint1.draw(bucketPos, getDepth(), color: bucketPallete.GetColorsAndWeights().First().Key);
-					world.Assets.SpriteBucketPaint2.draw(bucketPos, getDepth(), color: bucketPallete.GetColorsAndWeights().ToList()[1].Key);
-					world.Assets.SpriteBucketPaint3.draw(bucketPos, getDepth(), color: bucketPallete.GetColorsAndWeights().ToList()[2].Key);
-				} else
-				{
-					world.Assets.SpriteBucketPaint1.draw(bucketPos, getDepth(), color: Color.Gray);
-					world.Assets.SpriteBucketPaint2.draw(bucketPos, getDepth(), color: Color.Gray);
-					world.Assets.SpriteBucketPaint3.draw(bucketPos, getDepth(), color: Color.Gray);
+					Vector2 bucketPos = getPos() - new Vector2(14 - (getFlipped() ? 28 : 0), -12 - currentFrame % 2);
+					world.Assets.SpriteBucket.draw(bucketPos, getDepth());
+					if (!bucketEmpty)
+					{
+						world.Assets.SpriteBucketPaint1.draw(bucketPos, getDepth(), color: bucketPallete.GetColorsAndWeights().First().Key);
+						world.Assets.SpriteBucketPaint2.draw(bucketPos, getDepth(), color: bucketPallete.GetColorsAndWeights().ToList()[1].Key);
+						world.Assets.SpriteBucketPaint3.draw(bucketPos, getDepth(), color: bucketPallete.GetColorsAndWeights().ToList()[2].Key);
+					}
+					else
+					{
+						world.Assets.SpriteBucketPaint1.draw(bucketPos, getDepth(), color: Color.Gray);
+						world.Assets.SpriteBucketPaint2.draw(bucketPos, getDepth(), color: Color.Gray);
+						world.Assets.SpriteBucketPaint3.draw(bucketPos, getDepth(), color: Color.Gray);
+					}
 				}
+				int timeLeft = (int)Math.Ceiling(maxGameTime - (time.TotalGameTime.TotalSeconds - gameTimer));
+				if (timeLeft < 0)
+					timeLeft = 0;
+				string text = (timeLeft / 60) + ":" + (timeLeft % 60).ToString("00");
+				batch.DrawString(world.Assets.FontTest, text, new Vector2(world.GetDimensions().X / 2 - world.Assets.FontTest.MeasureString(text).X / 2, world.GetDimensions().Y - world.Assets.FontTest.MeasureString(text).Y), Color.Red);
 			}
-			int timeLeft = (int)Math.Ceiling(maxGameTime - (time.TotalGameTime.TotalSeconds - gameTimer));
-			if (timeLeft < 0)
-				timeLeft = 0;
-			string text = (timeLeft / 60) + ":" + (timeLeft % 60).ToString("00");
-			batch.DrawString(world.Assets.FontTest, text, new Vector2(world.GetDimensions().X / 2 - world.Assets.FontTest.MeasureString(text).X / 2, world.GetDimensions().Y - world.Assets.FontTest.MeasureString(text).Y), Color.Red);
+			else
+			{
+				string text = "Autumn is here!  Great job!";
+				batch.DrawString(world.Assets.FontTest, text, new Vector2(world.GetDimensions().X / 2 - world.Assets.FontTest.MeasureString(text).X / 2, world.Assets.FontTest.MeasureString(text).Y), Color.Red);
+				text = "Click anywhere to continue";
+				batch.DrawString(world.Assets.FontTest, text, new Vector2(world.GetDimensions().X / 2 - world.Assets.FontTest.MeasureString(text).X / 2, world.GetDimensions().Y / 2 - world.Assets.FontTest.MeasureString(text).Y / 2), Color.Red);
+			}
 		}
 
 		private void endLevel()
 		{
-
+			ended = true;
+			bench.endLevel();
 		}
 	}
 }

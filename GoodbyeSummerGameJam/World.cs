@@ -105,10 +105,10 @@ namespace GoodbyeSummerGameJam
 			{
 				case 0: currentViewScale = 1; AddEntity(new Menu(this)); break;
 				case 1: currentViewScale = viewScale;
-					Player player = new Player(this, GetDimensions() / 2);
-					AddEntity(player);
 					Workbench bench = new Workbench(this, new Vector2(GetDimensions().X / 2, 25));
 					AddEntity(bench);
+					Player player = new Player(this, bench, GetDimensions() / 2);
+					AddEntity(player);
 					AddEntity(new Tree(this, GetDimensions() / 2 + new Vector2(-40, 35)));
 					AddEntity(new Entity(this, GetDimensions() / 2, Assets.BackgroundPark, .75f));
 					break;
