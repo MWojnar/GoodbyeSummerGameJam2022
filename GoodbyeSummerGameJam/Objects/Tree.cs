@@ -34,7 +34,7 @@ namespace GoodbyeSummerGameJam.Objects
 			shakeMax = 1;
 			shakeMaxTime = .75;
 			shakeIntervalTime = .05;
-			autoShaking = true;
+			autoShaking = false;
 			autoShakeStart = 0;
 			shakeRotMax = .01;
 			rand = new Random();
@@ -103,6 +103,8 @@ namespace GoodbyeSummerGameJam.Objects
 				else
 					foreach (Pair<Sprite, Color> bushSprite in bushSprites)
 						bushSprite.Second = pallete.GetRandomColor();
+				foreach (Leaf leaf in leaves)
+					leaf.setColor(pallete.GetRandomColor());
 				lastPallete = pallete;
 			}
 		}
@@ -114,12 +116,30 @@ namespace GoodbyeSummerGameJam.Objects
 
 		public void shake(double startTime)
 		{
-			if ((!shaking || startTime - shakeStartTime > shakeMaxTime) && state < 2)
+			if ((!shaking || startTime - shakeStartTime > shakeMaxTime * 3) && state < 2)
 			{
 				shaking = true;
 				shakeStartTime = startTime;
-				generateLeaves(10);
-				state++;
+				generateLeaves(20);
+				incrementState();
+				world.Assets.SoundTreeShake.Play();
+			}
+		}
+
+		private void incrementState()
+		{
+			state++;
+			switch(state)
+			{
+				case 1: bushSprites[0].First = world.Assets.SpriteLesserTreeBush1;
+					bushSprites[1].First = world.Assets.SpriteLesserTreeBush2;
+					bushSprites[2].First = world.Assets.SpriteLesserTreeBush3;
+					break;
+				case 2:
+					bushSprites[0].First = null;
+					bushSprites[1].First = null;
+					bushSprites[2].First = null;
+					break;
 			}
 		}
 

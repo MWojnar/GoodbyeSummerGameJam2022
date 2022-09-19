@@ -31,6 +31,8 @@ namespace GoodbyeSummerGameJam
 		public override void update(GameTime time, StateHandler state)
 		{
 			base.update(time, state);
+
+			bool shaking = false;
 			float movement = (float)(speed * (time.ElapsedGameTime.TotalSeconds * 60));
 			if (state.KeyboardState.IsKeyDown(Keys.A))
 			{
@@ -68,18 +70,28 @@ namespace GoodbyeSummerGameJam
 				}
 				else if (entity is Tree)
 				{
-					if (state.KeyboardState.IsKeyDown(Keys.Space) && holdingBucket && colliding(entity))
+					if (state.KeyboardState.IsKeyDown(Keys.Space) && colliding(entity))
 					{
-						if (((Tree)entity).Colorable(bucketPallete) && !bucketEmpty)
+						if (holdingBucket)
 						{
-							((Tree)entity).Colorify(bucketPallete);
-							bucketEmpty = true;
+							if (((Tree)entity).Colorable(bucketPallete) && !bucketEmpty)
+							{
+								((Tree)entity).Colorify(bucketPallete);
+								bucketEmpty = true;
+							}
+						}
+						else
+						{
+							shaking = true;
+							((Tree)entity).shake(time.TotalGameTime.TotalSeconds);
 						}
 					}
 				}
 			}
 			if (holdingBucket)
 				setSprite(world.Assets.SpritePlayerHoldBucket);
+			else if (shaking)
+				setSprite(world.Assets.SpritePlayerShake);
 			else
 				setSprite(world.Assets.SpritePlayer);
 		}

@@ -568,19 +568,19 @@
 
 #begin tree-shake.ogg
 /importer:OggImporter
-/processor:SongProcessor
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:tree-shake.ogg;soundTreeShake.ogg
 
 #begin wind-short.ogg
 /importer:OggImporter
-/processor:SongProcessor
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:wind-short.ogg;soundWind1.ogg
 
 #begin wind-short-2.ogg
 /importer:OggImporter
-/processor:SongProcessor
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:wind-short-2.ogg;soundWind2.ogg
 

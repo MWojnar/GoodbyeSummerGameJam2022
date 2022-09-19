@@ -9,14 +9,15 @@ namespace GoodbyeSummerGameJam.Objects
 	public class Leaf : Entity
 	{
 		private Tree tree;
-		private float fallSpeed;
+		private float fallSpeed, groundOffset;
 
 		public Leaf(World world, Tree tree, Vector2 pos = default, Sprite sprite = null, float depth = 0.5F, int animationFrameRate = 15) : base(world, pos, sprite, depth, animationFrameRate)
 		{
 			this.tree = tree;
 			setColor(tree.GetPallete().GetRandomColor());
-			fallSpeed = 0.5f;
+			fallSpeed = 0.3f;
 			Random rand = new Random();
+			groundOffset = ((float)rand.NextDouble() - .5f) * 20;
 			int choice = rand.Next(5);
 			switch(choice)
 			{
@@ -36,7 +37,7 @@ namespace GoodbyeSummerGameJam.Objects
 		public override void update(GameTime time, StateHandler state)
 		{
 			base.update(time, state);
-			if (getPos().Y < tree.getPos().Y)
+			if (getPos().Y < tree.getPos().Y + groundOffset)
 			{
 				addPos(0, fallSpeed * (float)time.ElapsedGameTime.TotalSeconds * 60.0f);
 			}
