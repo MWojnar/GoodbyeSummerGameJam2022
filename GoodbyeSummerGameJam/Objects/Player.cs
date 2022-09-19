@@ -12,7 +12,7 @@ namespace GoodbyeSummerGameJam
 	public class Player : Entity
 	{
 		private int speed;
-		private double animationTimer;
+		private double animationTimer, gameTimer, maxGameTime;
 		private bool holdingBucket, bucketEmpty;
 		private Pallete bucketPallete;
 
@@ -23,6 +23,8 @@ namespace GoodbyeSummerGameJam
 			setAnimationFrameRate(5);
 			setDepth(.25f);
 			animationTimer = 0;
+			gameTimer = -1;
+			maxGameTime = 120;
 			holdingBucket = false;
 			bucketPallete = null;
 			bucketEmpty = false;
@@ -32,6 +34,10 @@ namespace GoodbyeSummerGameJam
 		{
 			base.update(time, state);
 
+			if (gameTimer == -1)
+				gameTimer = time.TotalGameTime.TotalSeconds;
+			if (maxGameTime < time.TotalGameTime.TotalSeconds - gameTimer)
+				endLevel();
 			bool shaking = false;
 			float movement = (float)(speed * (time.ElapsedGameTime.TotalSeconds * 60));
 			if (state.KeyboardState.IsKeyDown(Keys.A))
@@ -131,6 +137,16 @@ namespace GoodbyeSummerGameJam
 					world.Assets.SpriteBucketPaint3.draw(bucketPos, getDepth(), color: Color.Gray);
 				}
 			}
+			int timeLeft = (int)Math.Ceiling(maxGameTime - (time.TotalGameTime.TotalSeconds - gameTimer));
+			if (timeLeft < 0)
+				timeLeft = 0;
+			string text = (timeLeft / 60) + ":" + (timeLeft % 60).ToString("00");
+			batch.DrawString(world.Assets.FontTest, text, new Vector2(world.GetDimensions().X / 2 - world.Assets.FontTest.MeasureString(text).X / 2, world.GetDimensions().Y - world.Assets.FontTest.MeasureString(text).Y), Color.Red);
+		}
+
+		private void endLevel()
+		{
+
 		}
 	}
 }

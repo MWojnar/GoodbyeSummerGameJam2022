@@ -80,6 +80,7 @@ namespace GoodbyeSummerGameJam
 			SpriteCredits = new Sprite(batch, content.Load<Texture2D>("spriteCredits"));
 			BackgroundTitleScreen = new Sprite(batch, content.Load<Texture2D>("titleScreenBackground"));
 			BackgroundPark = new Sprite(batch, content.Load<Texture2D>("parkBackground"));
+
 			FontTest = content.Load<SpriteFont>("testFont");
 
 			Ambience = content.Load<Song>("ambience");
