@@ -14,7 +14,7 @@ namespace GoodbyeSummerGameJam.Objects
 		public Bucket(World world, Vector2 pos = default, Sprite sprite = null, float depth = 0.5F, int animationFrameRate = 15, bool flipped = false) : base(world, pos, sprite, depth, animationFrameRate, flipped)
 		{
 			setSprite(world.Assets.SpriteBucket);
-			colorWheel = new ColorWheel(world, world.GetPlayer(), this);
+			colorWheel = new ColorWheel(world, world.GetPlayer(), this, depth:.1f);
 			colorWheel.setVisible(false);
 			world.AddEntity(colorWheel);
 			hovering = false;

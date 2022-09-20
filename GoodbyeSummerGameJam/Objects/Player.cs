@@ -13,9 +13,11 @@ namespace GoodbyeSummerGameJam
 	{
 		private int speed;
 		private double animationTimer, gameTimer, maxGameTime;
-		private bool holdingBucket, bucketEmpty, ended, mouseDown;
+		private bool bucketEmpty, ended, mouseDown;
+		private Entity heldEntity;
 		private Pallete bucketPallete;
 		private Workbench bench;
+		private Vector2 grabOffset;
 
 		public Player(World world, Workbench bench, Vector2 pos = new Vector2()) : base(world, pos)
 		{
@@ -26,12 +28,13 @@ namespace GoodbyeSummerGameJam
 			animationTimer = 0;
 			gameTimer = -1;
 			maxGameTime = 120;
-			holdingBucket = false;
+			heldEntity = null;
 			bucketPallete = null;
 			bucketEmpty = false;
 			ended = false;
 			this.bench = bench;
 			mouseDown = false;
+			grabOffset = new Vector2();
 		}
 
 		public override void update(GameTime time, StateHandler state)
@@ -64,7 +67,7 @@ namespace GoodbyeSummerGameJam
 				{
 					if (entity is Bucket)
 					{
-						if (!holdingBucket)
+						if (heldEntity == null)
 						{
 							if (colliding(entity))
 							{
@@ -76,11 +79,19 @@ namespace GoodbyeSummerGameJam
 							dropBucket((Bucket)entity);
 						}
 					}
+					else if (entity is Cloud)
+					{
+						if (heldEntity == null && colliding(entity) && state.KeyboardState.IsKeyDown(Keys.Space))
+						{
+							heldEntity = entity;
+							grabOffset = entity.getPos() - getPos();
+						}
+					}
 					else if (entity is Tree)
 					{
 						if (state.KeyboardState.IsKeyDown(Keys.Space) && colliding(entity))
 						{
-							if (holdingBucket)
+							if (heldEntity is Bucket)
 							{
 								if (((Tree)entity).Colorable(bucketPallete) && !bucketEmpty)
 								{
@@ -88,7 +99,7 @@ namespace GoodbyeSummerGameJam
 									bucketEmpty = true;
 								}
 							}
-							else
+							else if (heldEntity == null)
 							{
 								shaking = true;
 								((Tree)entity).shake(time.TotalGameTime.TotalSeconds);
@@ -96,8 +107,16 @@ namespace GoodbyeSummerGameJam
 						}
 					}
 				}
-				if (holdingBucket)
+				if (heldEntity != null)
+				{
 					setSprite(world.Assets.SpritePlayerHoldBucket);
+					if (heldEntity is Cloud)
+					{
+						heldEntity.setPos(getPos() + grabOffset);
+						if (!state.KeyboardState.IsKeyDown(Keys.Space))
+							heldEntity = null;
+					}
+				}
 				else if (shaking)
 					setSprite(world.Assets.SpritePlayerShake);
 				else
@@ -115,7 +134,7 @@ namespace GoodbyeSummerGameJam
 		public void PickupBucket(Bucket bucket, Pallete pallete)
 		{
 			bucketPallete = pallete;
-			holdingBucket = true;
+			heldEntity = bucket;
 			bucketEmpty = false;
 			bucket.setVisible(false);
 		}
@@ -123,7 +142,7 @@ namespace GoodbyeSummerGameJam
 		private void dropBucket(Bucket bucket)
 		{
 			bucket.setVisible(true);
-			holdingBucket = false;
+			heldEntity = null;
 		}
 
 		public override void draw(GameTime time, SpriteBatch batch)
@@ -133,7 +152,7 @@ namespace GoodbyeSummerGameJam
 				animationTimer += time.ElapsedGameTime.TotalSeconds;
 				int currentFrame = (int)(animationTimer * getAnimationFrameRate());
 				getSprite()?.draw(getPos(), getDepth(), currentFrame, flip: getFlipped());
-				if (holdingBucket)
+				if (heldEntity is Bucket)
 				{
 					Vector2 bucketPos = getPos() - new Vector2(14 - (getFlipped() ? 28 : 0), -12 - currentFrame % 2);
 					world.Assets.SpriteBucket.draw(bucketPos, getDepth());
