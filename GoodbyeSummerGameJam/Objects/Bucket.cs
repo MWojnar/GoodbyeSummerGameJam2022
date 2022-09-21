@@ -9,6 +9,7 @@ namespace GoodbyeSummerGameJam.Objects
 	public class Bucket : Entity
 	{
 		private ColorWheel colorWheel;
+		private Pallete pallete;
 		private bool hovering;
 
 		public Bucket(World world, Vector2 pos = default, Sprite sprite = null, float depth = 0.5F, int animationFrameRate = 15, bool flipped = false) : base(world, pos, sprite, depth, animationFrameRate, flipped)
@@ -18,6 +19,7 @@ namespace GoodbyeSummerGameJam.Objects
 			colorWheel.setVisible(false);
 			world.AddEntity(colorWheel);
 			hovering = false;
+			pallete = world.GetPalletes()[0];
 		}
 
 		public override void draw(GameTime time, SpriteBatch batch)
@@ -44,6 +46,16 @@ namespace GoodbyeSummerGameJam.Objects
 		public void hover()
 		{
 			hovering = true;
+		}
+
+		public void SetPallete(Pallete pallete)
+		{
+			this.pallete = pallete;
+		}
+
+		public Pallete GetPallete()
+		{
+			return pallete;
 		}
 	}
 }

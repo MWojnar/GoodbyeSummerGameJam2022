@@ -63,7 +63,7 @@ namespace GoodbyeSummerGameJam.Objects
 			base.update(time, state);
 			if (player == null)
 				player = world.GetPlayer();
-			setPos(player.getPos() - new Vector2(25, 0));
+			setPos(player.getPos() + new Vector2(0, 28));
 			if (isVisible())
 			{
 				double mouseAngle = 2 * Math.PI - (Math.Atan2(state.MouseState.X / 5 - getPos().X, state.MouseState.Y / 5 - getPos().Y) + Math.PI);
@@ -78,7 +78,10 @@ namespace GoodbyeSummerGameJam.Objects
 						animationStartTimes[i] = time.TotalGameTime.TotalSeconds;
 				}
 				if (mouseDown && state.MouseState.LeftButton == ButtonState.Released && distance < radius)
-					player.PickupBucket(bucket, world.GetPalletes()[selected]);
+				{
+					player.PickupWorkbenchItem(bucket);
+					bucket.SetPallete(world.GetPalletes()[selected]);
+				}
 			}
 			if (state.MouseState.LeftButton == ButtonState.Pressed)
 				mouseDown = true;

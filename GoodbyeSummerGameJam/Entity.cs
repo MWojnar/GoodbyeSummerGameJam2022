@@ -182,5 +182,16 @@ namespace GoodbyeSummerGameJam
 			return false;
 		}
 
+		public bool pointColliding(Entity entity)
+		{
+			foreach (RectangleF sourceCollideeBox in entity.collisionBoxes)
+			{
+				RectangleF collideeBox = new RectangleF((entity.getPos() - entity.sprite.getOrigin()) + sourceCollideeBox.TopLeft, sourceCollideeBox.Size);
+				if (collideeBox.Contains(pos))
+					return true;
+			}
+			return false;
+		}
+
 	}
 }

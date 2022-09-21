@@ -110,6 +110,7 @@ namespace GoodbyeSummerGameJam
 					Player player = new Player(this, bench, GetDimensions() / 2);
 					AddEntity(player);
 					AddEntity(new Tree(this, GetDimensions() / 2 + new Vector2(-40, 35)));
+					AddEntity(new Bush(this, GetDimensions() / 2 + new Vector2(0, 65)));
 					AddEntity(new Cloud(this, new Vector2(40, 30), depth: .44f));
 					AddEntity(new Sun(this, new Vector2(GetDimensions().X - 30, 30), depth: .45f));
 					AddEntity(new Entity(this, GetDimensions() / 2, Assets.BackgroundPark, .75f));

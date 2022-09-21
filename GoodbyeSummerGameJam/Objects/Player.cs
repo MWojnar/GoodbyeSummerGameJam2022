@@ -13,9 +13,8 @@ namespace GoodbyeSummerGameJam
 	{
 		private int speed;
 		private double animationTimer, gameTimer, maxGameTime;
-		private bool bucketEmpty, ended, mouseDown;
+		private bool bucketEmpty, ended, mouseDown, spaceDown, displaySpacebarIcon;
 		private Entity heldEntity;
-		private Pallete bucketPallete;
 		private Workbench bench;
 		private Vector2 grabOffset;
 
@@ -29,11 +28,12 @@ namespace GoodbyeSummerGameJam
 			gameTimer = -1;
 			maxGameTime = 120;
 			heldEntity = null;
-			bucketPallete = null;
 			bucketEmpty = false;
 			ended = false;
 			this.bench = bench;
 			mouseDown = false;
+			spaceDown = false;
+			displaySpacebarIcon = false;
 			grabOffset = new Vector2();
 		}
 
@@ -41,8 +41,11 @@ namespace GoodbyeSummerGameJam
 		{
 			base.update(time, state);
 
+			displaySpacebarIcon = false;
 			if (!ended)
 			{
+				bool spaceUp = spaceDown && !state.KeyboardState.IsKeyDown(Keys.Space);
+				bool wasHolding = heldEntity != null;
 				if (gameTimer == -1)
 					gameTimer = time.TotalGameTime.TotalSeconds;
 				if (maxGameTime < time.TotalGameTime.TotalSeconds - gameTimer)
@@ -63,25 +66,39 @@ namespace GoodbyeSummerGameJam
 				}
 				if (state.KeyboardState.IsKeyDown(Keys.W))
 					addPos(0, -movement);
+				spaceDown = false;
+				if (state.KeyboardState.IsKeyDown(Keys.Space))
+					spaceDown = true;
 				foreach (Entity entity in world.GetEntities())
 				{
 					if (entity is Bucket)
 					{
 						if (heldEntity == null)
 						{
-							if (colliding(entity))
-							{
+							if (pointColliding(entity))
 								((Bucket)entity).hover();
+						}
+					}
+					else if (entity is WateringCan)
+					{
+						if (heldEntity == null)
+						{
+							if (pointColliding(entity))
+							{
+								displaySpacebarIcon = true;
+								if (spaceUp)
+									PickupWorkbenchItem(entity);
 							}
 						}
-						else if ((bucketEmpty || state.KeyboardState.IsKeyDown(Keys.Enter)) && !entity.isVisible() && colliding(entity))
-						{
-							dropBucket((Bucket)entity);
-						}
+					}
+					else if (entity is Workbench)
+					{
+						if (pointColliding(entity) && heldEntity != null && spaceUp && wasHolding)
+							dropWorkbenchItem(heldEntity);
 					}
 					else if (entity is Cloud)
 					{
-						if (heldEntity == null && colliding(entity) && state.KeyboardState.IsKeyDown(Keys.Space))
+						if (heldEntity == null && pointColliding(entity) && state.KeyboardState.IsKeyDown(Keys.Space))
 						{
 							heldEntity = entity;
 							grabOffset = entity.getPos() - getPos();
@@ -89,20 +106,38 @@ namespace GoodbyeSummerGameJam
 					}
 					else if (entity is Tree)
 					{
-						if (state.KeyboardState.IsKeyDown(Keys.Space) && colliding(entity))
+						if (pointColliding(entity))
 						{
-							if (heldEntity is Bucket)
+							if (heldEntity is Bucket && spaceUp)
 							{
-								if (((Tree)entity).Colorable(bucketPallete) && !bucketEmpty)
+								if (((Tree)entity).Colorable(((Bucket)heldEntity).GetPallete()) && !bucketEmpty)
 								{
-									((Tree)entity).Colorify(bucketPallete);
+									((Tree)entity).Colorify(((Bucket)heldEntity).GetPallete());
 									bucketEmpty = true;
 								}
 							}
-							else if (heldEntity == null)
+							else if (heldEntity == null && state.KeyboardState.IsKeyDown(Keys.Space))
 							{
 								shaking = true;
 								((Tree)entity).shake(time.TotalGameTime.TotalSeconds);
+							}
+						}
+					}
+					else if (entity is Bush)
+					{
+						if (spaceUp && pointColliding(entity))
+						{
+							if (heldEntity is Bucket)
+							{
+								if (((Bush)entity).Colorable(((Bucket)heldEntity).GetPallete()) && !bucketEmpty)
+								{
+									((Bush)entity).Colorify(((Bucket)heldEntity).GetPallete());
+									bucketEmpty = true;
+								}
+							}
+							else if (heldEntity is WateringCan)
+							{
+								((Bush)entity).Water();
 							}
 						}
 					}
@@ -131,17 +166,16 @@ namespace GoodbyeSummerGameJam
 			}
 		}
 
-		public void PickupBucket(Bucket bucket, Pallete pallete)
+		public void PickupWorkbenchItem(Entity workbenchItem)
 		{
-			bucketPallete = pallete;
-			heldEntity = bucket;
+			heldEntity = workbenchItem;
+			workbenchItem.setVisible(false);
 			bucketEmpty = false;
-			bucket.setVisible(false);
 		}
 
-		private void dropBucket(Bucket bucket)
+		private void dropWorkbenchItem(Entity workbenchItem)
 		{
-			bucket.setVisible(true);
+			workbenchItem.setVisible(true);
 			heldEntity = null;
 		}
 
@@ -158,9 +192,9 @@ namespace GoodbyeSummerGameJam
 					world.Assets.SpriteBucket.draw(bucketPos, getDepth());
 					if (!bucketEmpty)
 					{
-						world.Assets.SpriteBucketPaint1.draw(bucketPos, getDepth(), color: bucketPallete.GetColorsAndWeights().First().Key);
-						world.Assets.SpriteBucketPaint2.draw(bucketPos, getDepth(), color: bucketPallete.GetColorsAndWeights().ToList()[1].Key);
-						world.Assets.SpriteBucketPaint3.draw(bucketPos, getDepth(), color: bucketPallete.GetColorsAndWeights().ToList()[2].Key);
+						world.Assets.SpriteBucketPaint1.draw(bucketPos, getDepth(), color: ((Bucket)heldEntity).GetPallete().GetColorsAndWeights().First().Key);
+						world.Assets.SpriteBucketPaint2.draw(bucketPos, getDepth(), color: ((Bucket)heldEntity).GetPallete().GetColorsAndWeights().ToList()[1].Key);
+						world.Assets.SpriteBucketPaint3.draw(bucketPos, getDepth(), color: ((Bucket)heldEntity).GetPallete().GetColorsAndWeights().ToList()[2].Key);
 					}
 					else
 					{
@@ -169,11 +203,20 @@ namespace GoodbyeSummerGameJam
 						world.Assets.SpriteBucketPaint3.draw(bucketPos, getDepth(), color: Color.Gray);
 					}
 				}
+				else if (heldEntity is WateringCan)
+				{
+					Vector2 canPos = getPos() - new Vector2(14 - (getFlipped() ? 28 : 0), -12 - currentFrame % 2);
+					world.Assets.SpriteWateringCan.draw(canPos, getDepth(), flip: getFlipped());
+				}
 				int timeLeft = (int)Math.Ceiling(maxGameTime - (time.TotalGameTime.TotalSeconds - gameTimer));
 				if (timeLeft < 0)
 					timeLeft = 0;
 				string text = (timeLeft / 60) + ":" + (timeLeft % 60).ToString("00");
 				batch.DrawString(world.Assets.FontTest, text, new Vector2(world.GetDimensions().X / 2 - world.Assets.FontTest.MeasureString(text).X / 2, world.GetDimensions().Y - world.Assets.FontTest.MeasureString(text).Y), Color.Red);
+				if (displaySpacebarIcon)
+				{
+					//TODO
+				}
 			}
 			else
 			{
