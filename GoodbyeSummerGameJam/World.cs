@@ -109,12 +109,19 @@ namespace GoodbyeSummerGameJam
 					AddEntity(bench);
 					Player player = new Player(this, bench, GetDimensions() / 2);
 					AddEntity(player);
-					AddEntity(new Tree(this, GetDimensions() / 2 + new Vector2(-40, 35)));
-					AddEntity(new Bush(this, GetDimensions() / 2 + new Vector2(0, 65)));
+					AddEntity(new Tree(this, new Vector2(23, 143)));
+					AddEntity(new Tree(this, new Vector2(55, 217)));
+					AddEntity(new Tree(this, new Vector2(200, 215)));
+					AddEntity(new Tree(this, new Vector2(370, 217)));
+					AddEntity(new Tree(this, new Vector2(325, 140)));
+					AddEntity(new Bush(this, new Vector2(140, 125)));
+					AddEntity(new Bush(this, new Vector2(150, 190)));
+					AddEntity(new Bush(this, new Vector2(290, 187)));
 					AddEntity(new Cloud(this, new Vector2(40, 30), depth: .44f));
 					AddEntity(new Sun(this, new Vector2(GetDimensions().X - 30, 30), depth: .45f));
 					AddEntity(new Entity(this, GetDimensions() / 2, Assets.BackgroundPark, .75f));
-					AddEntity(new Entity(this, GetDimensions() / 2 + new Vector2(70, 12), Assets.spriteFountain));
+					Vector2 fountainPos = GetDimensions() / 2 + new Vector2(70, 12);
+					AddEntity(new Entity(this, fountainPos, Assets.spriteFountain, .5f - (fountainPos.Y + Assets.spriteFountain.getHeight() / 2) / 1000000f));
 					break;
 			}
 			viewScaleMatrix = Matrix.CreateScale(currentViewScale, currentViewScale, 1);

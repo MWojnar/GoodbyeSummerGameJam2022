@@ -17,6 +17,7 @@ namespace GoodbyeSummerGameJam.Objects
 			setColor(tree.GetPallete().GetRandomColor());
 			fallSpeed = 0.3f;
 			Random rand = new Random();
+			setDepth(depth - (float)rand.NextDouble() * .00001f);
 			groundOffset = ((float)rand.NextDouble() - .5f) * 20;
 			int choice = rand.Next(5);
 			switch(choice)

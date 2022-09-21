@@ -13,6 +13,7 @@ namespace GoodbyeSummerGameJam.Objects
 		public Bush(World world, Vector2 pos = default, Sprite sprite = null, float depth = 0.5F, int animationFrameRate = 15, bool flipped = false, Color? color = null) : base(world, pos, sprite, depth, animationFrameRate, flipped, color)
 		{
 			setSprite(world.Assets.SpriteBush);
+			setDepth(getDepth() - (getPos().Y + getSprite().getHeight() / 2) / 1000000f);
 			lastPallete = world.GetPalletes()[0];
 			setColor(lastPallete.GetRandomColor());
 		}
@@ -20,7 +21,7 @@ namespace GoodbyeSummerGameJam.Objects
 		public override void draw(GameTime time, SpriteBatch batch)
 		{
 			base.draw(time, batch);
-			world.Assets.SpriteBushGrass.draw(getPos(), getDepth() - .001f);
+			world.Assets.SpriteBushGrass.draw(getPos(), getDepth() - .00001f);
 		}
 
 		public void Water()

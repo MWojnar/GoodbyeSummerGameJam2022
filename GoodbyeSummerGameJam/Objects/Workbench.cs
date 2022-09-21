@@ -30,6 +30,7 @@ namespace GoodbyeSummerGameJam.Objects
 		{
 			setVisible(false);
 			bucket.setVisible(false);
+			wateringCan.setVisible(false);
 		}
 	}
 }

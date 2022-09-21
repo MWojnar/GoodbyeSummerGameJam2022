@@ -22,6 +22,7 @@ namespace GoodbyeSummerGameJam.Objects
 		public Tree(World world, Vector2 pos = default, Sprite sprite = null, float depth = 0.5F, int animationFrameRate = 15) : base(world, pos, sprite, depth, animationFrameRate)
 		{
 			setSprite(world.Assets.SpriteTree);
+			setDepth(depth - pos.Y / 1000000f);
 			lastPallete = null;
 			leaves = new List<Leaf>();
 			bushSprites = new List<Pair<Sprite, Color>>();
@@ -51,14 +52,14 @@ namespace GoodbyeSummerGameJam.Objects
 
 		public override void draw(GameTime time, SpriteBatch batch)
 		{
-			getSprite()?.draw(!shaking ? getPos() : getShakePos(0, time), getDepth() + .01f, 0, rotation: getShakeRot(0, time));
+			getSprite()?.draw(!shaking ? getPos() : getShakePos(0, time), getDepth(), 0, rotation: !shaking ? 0 : getShakeRot(0, time));
 			double i = shakeIntervalTime;
-			float depthOffset = .001f;
+			float depthOffset = .00001f;
 			foreach (Pair<Sprite, Color> bushSprite in bushSprites)
 			{
-				bushSprite.First?.draw(!shaking ? getPos() : getShakePos(i, time), getDepth() - depthOffset, 0, rotation: getShakeRot(i, time), color: bushSprite.Second);
+				bushSprite.First?.draw(!shaking ? getPos() : getShakePos(i, time), getDepth() - depthOffset, 0, rotation: !shaking ? 0 : getShakeRot(i, time), color: bushSprite.Second);
 				i += shakeIntervalTime;
-				depthOffset += .001f;
+				depthOffset += .00001f;
 			}
 		}
 
@@ -152,7 +153,7 @@ namespace GoodbyeSummerGameJam.Objects
 		{
 			for (int i = 0; i < amount; i++)
 			{
-				leaves.Add(new Leaf(world, this, getPos() + new Vector2((float)(rand.NextDouble() - .5) * (getSprite().getWidth() - 30), (float)(rand.NextDouble() - .5) * 20 - getSprite().getHeight() / 2), depth: getDepth() - .01f));
+				leaves.Add(new Leaf(world, this, getPos() + new Vector2((float)(rand.NextDouble() - .5) * (getSprite().getWidth() - 30), (float)(rand.NextDouble() - .5) * 20 - getSprite().getHeight() / 2), depth: getDepth()));
 				world.AddEntity(leaves.Last());
 			}
 		}
