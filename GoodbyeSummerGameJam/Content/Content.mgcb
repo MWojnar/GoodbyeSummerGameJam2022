@@ -379,6 +379,18 @@
 /processorParam:TextureFormat=Color
 /build:spr_DribbleFlipping_strip12.png;test.png
 
+#begin spr_fountain_strip3.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:spr_fountain_strip3.png;spriteFountain.png
+
 #begin spr_leaf1.png
 /importer:TextureImporter
 /processor:TextureProcessor
