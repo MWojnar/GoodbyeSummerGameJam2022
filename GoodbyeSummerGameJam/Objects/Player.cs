@@ -17,6 +17,7 @@ namespace GoodbyeSummerGameJam
 		private Entity heldEntity;
 		private Workbench bench;
 		private Vector2 grabOffset;
+		private Sprite pumpkinSprite;
 
 		public Player(World world, Workbench bench, Vector2 pos = new Vector2()) : base(world, pos)
 		{
@@ -35,6 +36,7 @@ namespace GoodbyeSummerGameJam
 			spaceDown = false;
 			displaySpacebarIcon = false;
 			grabOffset = new Vector2();
+			pumpkinSprite = null;
 		}
 
 		public override void update(GameTime time, StateHandler state)
@@ -80,6 +82,18 @@ namespace GoodbyeSummerGameJam
 						}
 					}
 					else if (entity is WateringCan)
+					{
+						if (heldEntity == null)
+						{
+							if (pointColliding(entity))
+							{
+								displaySpacebarIcon = true;
+								if (spaceUp)
+									PickupWorkbenchItem(entity);
+							}
+						}
+					}
+					else if (entity is PumpkinWorkbench)
 					{
 						if (heldEntity == null)
 						{
@@ -151,6 +165,16 @@ namespace GoodbyeSummerGameJam
 						if (!state.KeyboardState.IsKeyDown(Keys.Space))
 							heldEntity = null;
 					}
+					else if (heldEntity is PumpkinWorkbench)
+					{
+						if (spaceUp && getPos().Y > 100)
+						{
+							Vector2 pumpkinPos = getPos() - new Vector2(14 - (getFlipped() ? 28 : 0), -12);
+							Pumpkin pumpkin = new Pumpkin(world, pumpkinPos, pumpkinSprite, .5f - (pumpkinPos.Y + world.Assets.SpritePumpkin1.getHeight() / 2) / 1000000f);
+							world.AddEntity(pumpkin);
+							heldEntity = null;
+						}
+					}
 				}
 				else if (shaking)
 					setSprite(world.Assets.SpritePlayerShake);
@@ -169,7 +193,13 @@ namespace GoodbyeSummerGameJam
 		public void PickupWorkbenchItem(Entity workbenchItem)
 		{
 			heldEntity = workbenchItem;
-			workbenchItem.setVisible(false);
+			if (!(workbenchItem is PumpkinWorkbench))
+				workbenchItem.setVisible(false);
+			else
+			{
+				pumpkinSprite = workbenchItem.getSprite();
+				((PumpkinWorkbench)workbenchItem).randomizeSprite();
+			}
 			bucketEmpty = false;
 		}
 
@@ -207,6 +237,11 @@ namespace GoodbyeSummerGameJam
 				{
 					Vector2 canPos = getPos() - new Vector2(14 - (getFlipped() ? 28 : 0), -12 - currentFrame % 2);
 					world.Assets.SpriteWateringCan.draw(canPos, getDepth(), flip: getFlipped());
+				}
+				else if (heldEntity is PumpkinWorkbench)
+				{
+					Vector2 pumpkinPos = getPos() - new Vector2(14 - (getFlipped() ? 28 : 0), -12 - currentFrame % 2);
+					pumpkinSprite?.draw(pumpkinPos, getDepth(), flip: getFlipped());
 				}
 				int timeLeft = (int)Math.Ceiling(maxGameTime - (time.TotalGameTime.TotalSeconds - gameTimer));
 				if (timeLeft < 0)
