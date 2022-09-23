@@ -287,8 +287,9 @@ namespace GoodbyeSummerGameJam
 				int timeLeft = (int)Math.Ceiling(maxGameTime - (time.TotalGameTime.TotalSeconds - gameTimer));
 				if (timeLeft < 0)
 					timeLeft = 0;
-				string text = (timeLeft / 60) + ":" + (timeLeft % 60).ToString("00");
-				batch.DrawString(world.Assets.FontTest, text, new Vector2(world.GetDimensions().X / 2 - world.Assets.FontTest.MeasureString(text).X / 2, world.GetDimensions().Y - world.Assets.FontTest.MeasureString(text).Y), Color.Red);
+				/*string text = (timeLeft / 60) + ":" + (timeLeft % 60).ToString("00");
+				batch.DrawString(world.Assets.FontTest, text, new Vector2(world.GetDimensions().X / 2 - world.Assets.FontTest.MeasureString(text).X / 2, world.GetDimensions().Y - world.Assets.FontTest.MeasureString(text).Y), Color.Red);*/
+				world.Assets.SpriteTimer.draw(new Vector2(world.Assets.SpriteTimer.getWidth() / 2, world.GetDimensions().Y - world.Assets.SpriteTimer.getHeight() / 2), 0, 60 - timeLeft / 2);
 			}
 			else
 			{
