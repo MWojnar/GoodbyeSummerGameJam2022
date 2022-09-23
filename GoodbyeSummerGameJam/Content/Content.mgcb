@@ -403,6 +403,30 @@
 /processorParam:TextureFormat=Color
 /build:spr_DribbleFlipping_strip12.png;test.png
 
+#begin spr_fan.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:spr_fan.png;spriteFan.png
+
+#begin spr_fan_blow_strip2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:spr_fan_blow_strip2.png;spriteFanBlow.png
+
 #begin spr_fountain_strip3.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -535,6 +559,18 @@
 /processorParam:TextureFormat=Color
 /build:spr_pumpkin2.png;spritePumpkin2.png
 
+#begin spr_seed_bag.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:spr_seed_bag.png;spriteSeedBag.png
+
 #begin spr_space_strip2.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -559,6 +595,30 @@
 /processorParam:TextureFormat=Color
 /build:spr_sun.png;spriteSun.png
 
+#begin spr_thermometer_strip32.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:spr_thermometer_strip32.png;spriteThermometer.png
+
+#begin spr_timer_strip60.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:spr_timer_strip60.png;spriteTimer.png
+
 #begin spr_tree.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -582,6 +642,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:spr_watering_can.png;spriteWateringCan.png
+
+#begin spr_whirlybird_strip6.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:spr_whirlybird_strip6.png;spriteWhirlybird.png
 
 #begin spr_workbench_strip2.png
 /importer:TextureImporter

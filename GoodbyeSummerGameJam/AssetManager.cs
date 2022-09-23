@@ -13,7 +13,7 @@ namespace GoodbyeSummerGameJam
 			SpriteWorkbench, SpriteBucket, SpriteBucketPaint1, SpriteBucketPaint2, SpriteBucketPaint3, SpriteLeaf1, SpriteLeaf2, SpriteLeaf3, SpriteLeaf4, SpriteLeaf5,
 			SpriteColorWheel1, SpriteColorWheel2, SpriteColorWheel3, SpriteColorWheel4, SpriteColorWheel5, SpriteColorWheel6, SpriteColorWheel7, SpriteColorWheel8,
 			SpriteBush, SpriteBushBerries, SpriteBushGrass, SpritePlayerShake, SpriteCloud, SpriteSun, SpriteWateringCan, SpritePumpkin1, SpritePumpkin2, SpriteFountain,
-			SpriteSpacebar;
+			SpriteSpacebar, SpriteSeedBag, SpriteFan, SpriteFanBlow, SpriteWhirlybird, SpriteThermometer, SpriteTimer;
 		public Sprite BackgroundPark, BackgroundTitleScreen;
 		public SpriteFont FontTest;
 		public Song Ambience;
@@ -44,6 +44,12 @@ namespace GoodbyeSummerGameJam
 			SpritePumpkin1 = new Sprite(batch, content.Load<Texture2D>("spritePumpkin1"));
 			SpritePumpkin2 = new Sprite(batch, content.Load<Texture2D>("spritePumpkin2"));
 			SpriteFountain = new Sprite(batch, content.Load<Texture2D>("spriteFountain"), 3);
+			SpriteSeedBag = new Sprite(batch, content.Load<Texture2D>("spriteSeedBag"));
+			SpriteFan = new Sprite(batch, content.Load<Texture2D>("spriteFan"));
+			SpriteFanBlow = new Sprite(batch, content.Load<Texture2D>("spriteFanBlow"), 2);
+			SpriteWhirlybird = new Sprite(batch, content.Load<Texture2D>("spriteWhirlybird"), 6);
+			SpriteThermometer = new Sprite(batch, content.Load<Texture2D>("spriteThermometer"), 32);
+			SpriteTimer = new Sprite(batch, content.Load<Texture2D>("spriteTimer"), 60);
 			SpriteBucket = new Sprite(batch, content.Load<Texture2D>("spriteBucket"));
 			SpriteBucketPaint1 = new Sprite(batch, content.Load<Texture2D>("spriteBucketPaint1"));
 			SpriteBucketPaint2 = new Sprite(batch, content.Load<Texture2D>("spriteBucketPaint2"));
