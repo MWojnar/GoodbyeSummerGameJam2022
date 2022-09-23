@@ -12,11 +12,12 @@ namespace GoodbyeSummerGameJam
 			SpritePlayButton, SpriteInstructionsButton, SpriteCreditsButton, SpriteExitButton, SpriteInstructions, SpriteCredits, SpritePlayer, SpritePlayerHoldBucket,
 			SpriteWorkbench, SpriteBucket, SpriteBucketPaint1, SpriteBucketPaint2, SpriteBucketPaint3, SpriteLeaf1, SpriteLeaf2, SpriteLeaf3, SpriteLeaf4, SpriteLeaf5,
 			SpriteColorWheel1, SpriteColorWheel2, SpriteColorWheel3, SpriteColorWheel4, SpriteColorWheel5, SpriteColorWheel6, SpriteColorWheel7, SpriteColorWheel8,
-			SpriteBush, SpriteBushBerries, SpriteBushGrass, SpritePlayerShake, SpriteCloud, SpriteSun, SpriteWateringCan, SpritePumpkin1, SpritePumpkin2, spriteFountain;
+			SpriteBush, SpriteBushBerries, SpriteBushGrass, SpritePlayerShake, SpriteCloud, SpriteSun, SpriteWateringCan, SpritePumpkin1, SpritePumpkin2, SpriteFountain,
+			SpriteSpacebar;
 		public Sprite BackgroundPark, BackgroundTitleScreen;
 		public SpriteFont FontTest;
 		public Song Ambience;
-		public SoundEffect SoundTreeShake, SoundWind1, SoundWind2;
+		public SoundEffect SoundTreeShake, SoundWind1, SoundWind2, SoundPaintSelect, SoundPaintApply, SoundPumpkinPickup, SoundPumpkinPlace, SoundWaterPour1, SoundWaterPour2;
 
 		private ContentManager content;
 		private SpriteBatch batch;
@@ -39,9 +40,10 @@ namespace GoodbyeSummerGameJam
 			SpriteCloud = new Sprite(batch, content.Load<Texture2D>("spriteCloud"));
 			SpriteSun = new Sprite(batch, content.Load<Texture2D>("spriteSun"));
 			SpriteWateringCan = new Sprite(batch, content.Load<Texture2D>("spriteWateringCan"));
+			SpriteSpacebar = new Sprite(batch, content.Load<Texture2D>("spriteSpacebar"), 2);
 			SpritePumpkin1 = new Sprite(batch, content.Load<Texture2D>("spritePumpkin1"));
 			SpritePumpkin2 = new Sprite(batch, content.Load<Texture2D>("spritePumpkin2"));
-			spriteFountain = new Sprite(batch, content.Load<Texture2D>("spriteFountain"), 3);
+			SpriteFountain = new Sprite(batch, content.Load<Texture2D>("spriteFountain"), 3);
 			SpriteBucket = new Sprite(batch, content.Load<Texture2D>("spriteBucket"));
 			SpriteBucketPaint1 = new Sprite(batch, content.Load<Texture2D>("spriteBucketPaint1"));
 			SpriteBucketPaint2 = new Sprite(batch, content.Load<Texture2D>("spriteBucketPaint2"));
@@ -89,6 +91,12 @@ namespace GoodbyeSummerGameJam
 			SoundTreeShake = content.Load<SoundEffect>("soundTreeShake");
 			SoundWind1 = content.Load<SoundEffect>("soundWind1");
 			SoundWind2 = content.Load<SoundEffect>("soundWind2");
+			SoundPaintSelect = content.Load<SoundEffect>("soundPaintSelect");
+			SoundPaintApply = content.Load<SoundEffect>("soundPaintApply");
+			SoundPumpkinPickup = content.Load<SoundEffect>("soundPumpkinPickup");
+			SoundPumpkinPlace = content.Load<SoundEffect>("soundPumpkinPlace");
+			SoundWaterPour1 = content.Load<SoundEffect>("soundWaterPour1");
+			SoundWaterPour2 = content.Load<SoundEffect>("soundWaterPour2");
 		}
 	}
 }

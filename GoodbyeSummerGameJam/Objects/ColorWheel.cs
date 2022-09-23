@@ -80,6 +80,7 @@ namespace GoodbyeSummerGameJam.Objects
 				if (mouseDown && state.MouseState.LeftButton == ButtonState.Released && distance < radius)
 				{
 					player.PickupWorkbenchItem(bucket);
+					world.Assets.SoundPaintSelect.Play();
 					bucket.SetPallete(world.GetPalletes()[selected]);
 				}
 			}

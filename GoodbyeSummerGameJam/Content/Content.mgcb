@@ -193,11 +193,35 @@
 /processorParam:TextureFormat=Color
 /build:p8.png;spriteColorWheel8.png
 
+#begin paint-apply.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:paint-apply.ogg;soundPaintApply.ogg
+
+#begin paint-select.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:paint-select.ogg;soundPaintSelect.ogg
+
 #begin park-ambient-loop.ogg
 /importer:OggImporter
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:park-ambient-loop.ogg;ambience.ogg
+
+#begin pumpkin-pickup.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:pumpkin-pickup.ogg;soundPumpkinPickup.ogg
+
+#begin pumpkin-place.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:pumpkin-place.ogg;soundPumpkinPlace.ogg
 
 #begin spr_bucket.png
 /importer:TextureImporter
@@ -511,6 +535,18 @@
 /processorParam:TextureFormat=Color
 /build:spr_pumpkin2.png;spritePumpkin2.png
 
+#begin spr_space_strip2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:spr_space_strip2.png;spriteSpacebar.png
+
 #begin spr_sun.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -583,6 +619,18 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:tree-shake.ogg;soundTreeShake.ogg
+
+#begin water-pour1.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:water-pour1.ogg;soundWaterPour1.ogg
+
+#begin water-pour2.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:water-pour2.ogg;soundWaterPour2.ogg
 
 #begin wind-short.ogg
 /importer:OggImporter

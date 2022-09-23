@@ -18,6 +18,7 @@ namespace GoodbyeSummerGameJam
 		private Workbench bench;
 		private Vector2 grabOffset;
 		private Sprite pumpkinSprite;
+		private Random rand;
 
 		public Player(World world, Workbench bench, Vector2 pos = new Vector2()) : base(world, pos)
 		{
@@ -37,6 +38,7 @@ namespace GoodbyeSummerGameJam
 			displaySpacebarIcon = false;
 			grabOffset = new Vector2();
 			pumpkinSprite = null;
+			rand = new Random();
 		}
 
 		public override void update(GameTime time, StateHandler state)
@@ -101,7 +103,10 @@ namespace GoodbyeSummerGameJam
 							{
 								displaySpacebarIcon = true;
 								if (spaceUp)
+								{
 									PickupWorkbenchItem(entity);
+									world.Assets.SoundPumpkinPickup.Play();
+								}
 							}
 						}
 					}
@@ -112,46 +117,79 @@ namespace GoodbyeSummerGameJam
 					}
 					else if (entity is Cloud)
 					{
-						if (heldEntity == null && pointColliding(entity) && state.KeyboardState.IsKeyDown(Keys.Space))
+						if (heldEntity == null)
 						{
-							heldEntity = entity;
-							grabOffset = entity.getPos() - getPos();
+							if (pointColliding(entity))
+							{
+								if (state.KeyboardState.IsKeyDown(Keys.Space))
+								{
+									heldEntity = entity;
+									grabOffset = entity.getPos() - getPos();
+								}
+								else
+									displaySpacebarIcon = true;
+							}
 						}
 					}
 					else if (entity is Tree)
 					{
 						if (pointColliding(entity))
 						{
-							if (heldEntity is Bucket && spaceUp)
+							if (heldEntity is Bucket)
 							{
 								if (((Tree)entity).Colorable(((Bucket)heldEntity).GetPallete()) && !bucketEmpty)
 								{
-									((Tree)entity).Colorify(((Bucket)heldEntity).GetPallete());
-									bucketEmpty = true;
+									displaySpacebarIcon = true;
+									if (spaceUp)
+									{
+										((Tree)entity).Colorify(((Bucket)heldEntity).GetPallete());
+										world.Assets.SoundPaintApply.Play();
+										bucketEmpty = true;
+									}
 								}
 							}
-							else if (heldEntity == null && state.KeyboardState.IsKeyDown(Keys.Space))
+							else if (heldEntity == null)
 							{
-								shaking = true;
-								((Tree)entity).shake(time.TotalGameTime.TotalSeconds);
+								if (state.KeyboardState.IsKeyDown(Keys.Space))
+								{
+									shaking = true;
+									((Tree)entity).shake(time.TotalGameTime.TotalSeconds);
+								}
+								else
+								{
+									displaySpacebarIcon = true;
+								}
 							}
 						}
 					}
 					else if (entity is Bush)
 					{
-						if (spaceUp && pointColliding(entity))
+						if (pointColliding(entity))
 						{
 							if (heldEntity is Bucket)
 							{
 								if (((Bush)entity).Colorable(((Bucket)heldEntity).GetPallete()) && !bucketEmpty)
 								{
-									((Bush)entity).Colorify(((Bucket)heldEntity).GetPallete());
-									bucketEmpty = true;
+									displaySpacebarIcon = true;
+									if (spaceUp)
+									{
+										((Bush)entity).Colorify(((Bucket)heldEntity).GetPallete());
+										world.Assets.SoundPaintApply.Play();
+										bucketEmpty = true;
+									}
 								}
 							}
 							else if (heldEntity is WateringCan)
 							{
-								((Bush)entity).Water();
+								displaySpacebarIcon = true;
+								if (spaceUp)
+								{
+									((Bush)entity).Water();
+									if (rand.NextDouble() > .5)
+										world.Assets.SoundWaterPour1.Play();
+									else 
+										world.Assets.SoundWaterPour2.Play(); 
+								}
 							}
 						}
 					}
@@ -172,6 +210,7 @@ namespace GoodbyeSummerGameJam
 							Vector2 pumpkinPos = getPos() - new Vector2(14 - (getFlipped() ? 28 : 0), -12);
 							Pumpkin pumpkin = new Pumpkin(world, pumpkinPos, pumpkinSprite, .5f - (pumpkinPos.Y + world.Assets.SpritePumpkin1.getHeight() / 2) / 1000000f);
 							world.AddEntity(pumpkin);
+							world.Assets.SoundPumpkinPlace.Play();
 							heldEntity = null;
 						}
 					}
@@ -216,6 +255,8 @@ namespace GoodbyeSummerGameJam
 				animationTimer += time.ElapsedGameTime.TotalSeconds;
 				int currentFrame = (int)(animationTimer * getAnimationFrameRate());
 				getSprite()?.draw(getPos(), getDepth(), currentFrame, flip: getFlipped());
+				if (displaySpacebarIcon)
+					world.Assets.SpriteSpacebar.draw(getPos() + new Vector2(0, 30), getDepth(), currentFrame);
 				if (heldEntity is Bucket)
 				{
 					Vector2 bucketPos = getPos() - new Vector2(14 - (getFlipped() ? 28 : 0), -12 - currentFrame % 2);
@@ -248,10 +289,6 @@ namespace GoodbyeSummerGameJam
 					timeLeft = 0;
 				string text = (timeLeft / 60) + ":" + (timeLeft % 60).ToString("00");
 				batch.DrawString(world.Assets.FontTest, text, new Vector2(world.GetDimensions().X / 2 - world.Assets.FontTest.MeasureString(text).X / 2, world.GetDimensions().Y - world.Assets.FontTest.MeasureString(text).Y), Color.Red);
-				if (displaySpacebarIcon)
-				{
-					//TODO
-				}
 			}
 			else
 			{

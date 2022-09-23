@@ -121,7 +121,7 @@ namespace GoodbyeSummerGameJam
 					AddEntity(new Sun(this, new Vector2(GetDimensions().X - 30, 30), depth: .45f));
 					AddEntity(new Entity(this, GetDimensions() / 2, Assets.BackgroundPark, .75f));
 					Vector2 fountainPos = GetDimensions() / 2 + new Vector2(70, 12);
-					AddEntity(new Entity(this, fountainPos, Assets.spriteFountain, .5f - (fountainPos.Y + Assets.spriteFountain.getHeight() / 2) / 1000000f));
+					AddEntity(new Entity(this, fountainPos, Assets.SpriteFountain, .5f - (fountainPos.Y + Assets.SpriteFountain.getHeight() / 2) / 1000000f));
 					break;
 			}
 			viewScaleMatrix = Matrix.CreateScale(currentViewScale, currentViewScale, 1);
