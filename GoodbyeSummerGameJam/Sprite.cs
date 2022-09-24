@@ -60,5 +60,10 @@ namespace GoodbyeSummerGameJam
 		{
 			return new Vector2(frameWidth, frameHeight);
 		}
+
+		public int getFrames()
+		{
+			return frames;
+		}
 	}
 }

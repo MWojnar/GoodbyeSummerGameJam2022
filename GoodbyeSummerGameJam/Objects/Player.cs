@@ -115,8 +115,12 @@ namespace GoodbyeSummerGameJam
 					}
 					else if (entity is Workbench)
 					{
-						if (pointColliding(entity) && heldEntity != null && spaceUp && wasHolding)
-							dropWorkbenchItem(heldEntity);
+						if (pointColliding(entity) && heldEntity != null)
+						{
+							displaySpacebarIcon = true;
+							if (spaceUp && wasHolding)
+								dropWorkbenchItem(heldEntity);
+						}
 					}
 					else if (entity is Cloud)
 					{
@@ -242,6 +246,10 @@ namespace GoodbyeSummerGameJam
 									world.Assets.SoundWind1.Play();
 								else
 									world.Assets.SoundWind2.Play();
+								animationTimer += time.ElapsedGameTime.TotalSeconds;
+								int currentFrame = (int)(animationTimer * getAnimationFrameRate());
+								Vector2 windPos = getPos() - new Vector2(26 - (getFlipped() ? 52 : 0), 6 - currentFrame % 2);
+								world.AddEntity(new Particle(world, windPos, world.Assets.SpriteWind, flipped: getFlipped()));
 							}
 						}
 						else

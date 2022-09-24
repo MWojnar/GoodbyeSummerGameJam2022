@@ -679,6 +679,18 @@
 /processorParam:TextureFormat=Color
 /build:spr_whirlybird_strip6.png;spriteWhirlybird.png
 
+#begin spr_wind_strip6.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:spr_wind_strip6.png;spriteWind.png
+
 #begin spr_workbench_strip2.png
 /importer:TextureImporter
 /processor:TextureProcessor
