@@ -11,8 +11,8 @@ namespace GoodbyeSummerGameJam
 {
 	public class Player : Entity
 	{
-		private int speed;
-		private double animationTimer, gameTimer, maxGameTime;
+		private int speed, temperature;
+		private double animationTimer, gameTimer, maxGameTime, fanTimerStart, fanTimerMax;
 		private bool bucketEmpty, ended, mouseDown, spaceDown, displaySpacebarIcon;
 		private Entity heldEntity;
 		private Workbench bench;
@@ -39,6 +39,9 @@ namespace GoodbyeSummerGameJam
 			grabOffset = new Vector2();
 			pumpkinSprite = null;
 			rand = new Random();
+			temperature = 0;
+			fanTimerStart = 0;
+			fanTimerMax = .25;
 		}
 
 		public override void update(GameTime time, StateHandler state)
@@ -83,7 +86,7 @@ namespace GoodbyeSummerGameJam
 								((Bucket)entity).hover();
 						}
 					}
-					else if (entity is WateringCan || entity is SeedBag)
+					else if (entity is WateringCan || entity is SeedBag || entity is Fan)
 					{
 						if (heldEntity == null)
 						{
@@ -196,7 +199,8 @@ namespace GoodbyeSummerGameJam
 				}
 				if (heldEntity != null)
 				{
-					setSprite(world.Assets.SpritePlayerHoldBucket);
+					if (!(heldEntity is Fan))
+						setSprite(world.Assets.SpritePlayerHoldBucket);
 					if (heldEntity is Cloud)
 					{
 						heldEntity.setPos(getPos() + grabOffset);
@@ -222,6 +226,26 @@ namespace GoodbyeSummerGameJam
 							Whirlybird seed = new Whirlybird(world, seedPos, pumpkinSprite, .5f - (seedPos.Y + 50) / 1000000f);
 							world.AddEntity(seed);
 						}
+					}
+					else if (heldEntity is Fan)
+					{
+						if (time.TotalGameTime.TotalSeconds - fanTimerStart > fanTimerMax)
+						{
+							setSprite(world.Assets.SpritePlayerHoldBucket);
+							if (spaceUp)
+							{
+								fanTimerStart = time.TotalGameTime.TotalSeconds;
+								temperature++;
+								if (temperature > 31)
+									temperature = 31;
+								if (rand.NextDouble() > .5)
+									world.Assets.SoundWind1.Play();
+								else
+									world.Assets.SoundWind2.Play();
+							}
+						}
+						else
+							setSprite(world.Assets.SpritePlayerBlow);
 					}
 				}
 				else if (shaking)
@@ -298,12 +322,21 @@ namespace GoodbyeSummerGameJam
 					Vector2 pumpkinPos = getPos() - new Vector2(14 - (getFlipped() ? 28 : 0), -12 - currentFrame % 2);
 					pumpkinSprite?.draw(pumpkinPos, getDepth() - .0000001f);
 				}
+				else if (heldEntity is Fan)
+				{
+					Vector2 fanPos = getPos() - new Vector2(14 - (getFlipped() ? 28 : 0), 4 - currentFrame % 2);
+					if (time.TotalGameTime.TotalSeconds - fanTimerStart > fanTimerMax)
+						world.Assets.SpriteFan.draw(fanPos, getDepth() - .0000001f, flip: getFlipped());
+					else
+						world.Assets.SpriteFanBlow.draw(fanPos, getDepth() - .0000001f, (int)((time.TotalGameTime.TotalSeconds - fanTimerStart) * 15) % 2, flip: getFlipped());
+				}
 				int timeLeft = (int)Math.Ceiling(maxGameTime - (time.TotalGameTime.TotalSeconds - gameTimer));
 				if (timeLeft < 0)
 					timeLeft = 0;
 				/*string text = (timeLeft / 60) + ":" + (timeLeft % 60).ToString("00");
 				batch.DrawString(world.Assets.FontTest, text, new Vector2(world.GetDimensions().X / 2 - world.Assets.FontTest.MeasureString(text).X / 2, world.GetDimensions().Y - world.Assets.FontTest.MeasureString(text).Y), Color.Red);*/
 				world.Assets.SpriteTimer.draw(new Vector2(world.Assets.SpriteTimer.getWidth() / 2, world.GetDimensions().Y - world.Assets.SpriteTimer.getHeight() / 2), 0, 60 - timeLeft / 2);
+				world.Assets.SpriteThermometer.draw(world.GetDimensions() - world.Assets.SpriteThermometer.getDimensions() / 2, 0, temperature);
 			}
 			else
 			{

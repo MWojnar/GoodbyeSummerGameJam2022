@@ -13,7 +13,7 @@ namespace GoodbyeSummerGameJam
 			SpriteWorkbench, SpriteBucket, SpriteBucketPaint1, SpriteBucketPaint2, SpriteBucketPaint3, SpriteLeaf1, SpriteLeaf2, SpriteLeaf3, SpriteLeaf4, SpriteLeaf5,
 			SpriteColorWheel1, SpriteColorWheel2, SpriteColorWheel3, SpriteColorWheel4, SpriteColorWheel5, SpriteColorWheel6, SpriteColorWheel7, SpriteColorWheel8,
 			SpriteBush, SpriteBushBerries, SpriteBushGrass, SpritePlayerShake, SpriteCloud, SpriteSun, SpriteWateringCan, SpritePumpkin1, SpritePumpkin2, SpriteFountain,
-			SpriteSpacebar, SpriteSeedBag, SpriteFan, SpriteFanBlow, SpriteWhirlybird, SpriteThermometer, SpriteTimer;
+			SpriteSpacebar, SpriteSeedBag, SpriteFan, SpriteFanBlow, SpriteWhirlybird, SpriteThermometer, SpriteTimer, SpritePlayerBlow;
 		public Sprite BackgroundPark, BackgroundTitleScreen;
 		public SpriteFont FontTest;
 		public Song Ambience;
@@ -33,6 +33,7 @@ namespace GoodbyeSummerGameJam
 			SpritePlayer = new Sprite(batch, content.Load<Texture2D>("spritePlayer"), 2);
 			SpritePlayerHoldBucket = new Sprite(batch, content.Load<Texture2D>("spritePlayerHoldBucket"), 2);
 			SpritePlayerShake = new Sprite(batch, content.Load<Texture2D>("spritePlayerShake"), 2);
+			SpritePlayerBlow = new Sprite(batch, content.Load<Texture2D>("spritePlayerBlow"), 2);
 			SpriteWorkbench = new Sprite(batch, content.Load<Texture2D>("spriteWorkbench"), 2);
 			SpriteBush = new Sprite(batch, content.Load<Texture2D>("spriteBush"));
 			SpriteBushBerries = new Sprite(batch, content.Load<Texture2D>("spriteBushBerries"));
