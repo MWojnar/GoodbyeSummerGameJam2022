@@ -83,7 +83,7 @@ namespace GoodbyeSummerGameJam
 								((Bucket)entity).hover();
 						}
 					}
-					else if (entity is WateringCan)
+					else if (entity is WateringCan || entity is SeedBag)
 					{
 						if (heldEntity == null)
 						{
@@ -214,6 +214,15 @@ namespace GoodbyeSummerGameJam
 							heldEntity = null;
 						}
 					}
+					else if (heldEntity is SeedBag)
+					{
+						if (spaceUp && getPos().Y > 50)
+						{
+							Vector2 seedPos = getPos() - new Vector2(14 - (getFlipped() ? 28 : 0), -12);
+							Whirlybird seed = new Whirlybird(world, seedPos, pumpkinSprite, .5f - (seedPos.Y + 50) / 1000000f);
+							world.AddEntity(seed);
+						}
+					}
 				}
 				else if (shaking)
 					setSprite(world.Assets.SpritePlayerShake);
@@ -263,26 +272,31 @@ namespace GoodbyeSummerGameJam
 					world.Assets.SpriteBucket.draw(bucketPos, getDepth());
 					if (!bucketEmpty)
 					{
-						world.Assets.SpriteBucketPaint1.draw(bucketPos, getDepth(), color: ((Bucket)heldEntity).GetPallete().GetColorsAndWeights().First().Key);
-						world.Assets.SpriteBucketPaint2.draw(bucketPos, getDepth(), color: ((Bucket)heldEntity).GetPallete().GetColorsAndWeights().ToList()[1].Key);
-						world.Assets.SpriteBucketPaint3.draw(bucketPos, getDepth(), color: ((Bucket)heldEntity).GetPallete().GetColorsAndWeights().ToList()[2].Key);
+						world.Assets.SpriteBucketPaint1.draw(bucketPos, getDepth() - .0000001f, color: ((Bucket)heldEntity).GetPallete().GetColorsAndWeights().First().Key);
+						world.Assets.SpriteBucketPaint2.draw(bucketPos, getDepth() - .0000001f, color: ((Bucket)heldEntity).GetPallete().GetColorsAndWeights().ToList()[1].Key);
+						world.Assets.SpriteBucketPaint3.draw(bucketPos, getDepth() - .0000001f, color: ((Bucket)heldEntity).GetPallete().GetColorsAndWeights().ToList()[2].Key);
 					}
 					else
 					{
-						world.Assets.SpriteBucketPaint1.draw(bucketPos, getDepth(), color: Color.Gray);
-						world.Assets.SpriteBucketPaint2.draw(bucketPos, getDepth(), color: Color.Gray);
-						world.Assets.SpriteBucketPaint3.draw(bucketPos, getDepth(), color: Color.Gray);
+						world.Assets.SpriteBucketPaint1.draw(bucketPos, getDepth() - .0000001f, color: Color.Gray);
+						world.Assets.SpriteBucketPaint2.draw(bucketPos, getDepth() - .0000001f, color: Color.Gray);
+						world.Assets.SpriteBucketPaint3.draw(bucketPos, getDepth() - .0000001f, color: Color.Gray);
 					}
 				}
 				else if (heldEntity is WateringCan)
 				{
 					Vector2 canPos = getPos() - new Vector2(14 - (getFlipped() ? 28 : 0), -12 - currentFrame % 2);
-					world.Assets.SpriteWateringCan.draw(canPos, getDepth(), flip: getFlipped());
+					world.Assets.SpriteWateringCan.draw(canPos, getDepth() - .0000001f, flip: getFlipped());
+				}
+				else if (heldEntity is SeedBag)
+				{
+					Vector2 seedBagPos = getPos() - new Vector2(14 - (getFlipped() ? 28 : 0), -12 - currentFrame % 2);
+					world.Assets.SpriteSeedBag.draw(seedBagPos, getDepth() - .0000001f);
 				}
 				else if (heldEntity is PumpkinWorkbench)
 				{
 					Vector2 pumpkinPos = getPos() - new Vector2(14 - (getFlipped() ? 28 : 0), -12 - currentFrame % 2);
-					pumpkinSprite?.draw(pumpkinPos, getDepth(), flip: getFlipped());
+					pumpkinSprite?.draw(pumpkinPos, getDepth() - .0000001f);
 				}
 				int timeLeft = (int)Math.Ceiling(maxGameTime - (time.TotalGameTime.TotalSeconds - gameTimer));
 				if (timeLeft < 0)
