@@ -14,7 +14,7 @@ namespace GoodbyeSummerGameJam
 			SpriteColorWheel1, SpriteColorWheel2, SpriteColorWheel3, SpriteColorWheel4, SpriteColorWheel5, SpriteColorWheel6, SpriteColorWheel7, SpriteColorWheel8,
 			SpriteBush, SpriteBushBerries, SpriteBushGrass, SpritePlayerShake, SpriteCloud, SpriteSun, SpriteWateringCan, SpritePumpkin1, SpritePumpkin2, SpriteFountain,
 			SpriteSpacebar, SpriteSeedBag, SpriteFan, SpriteFanBlow, SpriteWhirlybird, SpriteThermometer, SpriteTimer, SpritePlayerBlow;
-		public Sprite BackgroundPark, BackgroundTitleScreen;
+		public Sprite BackgroundPark, BackgroundParkCloudy, BackgroundTitleScreen;
 		public SpriteFont FontTest;
 		public Song Ambience;
 		public SoundEffect SoundTreeShake, SoundWind1, SoundWind2, SoundPaintSelect, SoundPaintApply, SoundPumpkinPickup, SoundPumpkinPlace, SoundWaterPour1, SoundWaterPour2;
@@ -88,8 +88,10 @@ namespace GoodbyeSummerGameJam
 			SpriteExitButton = new Sprite(batch, content.Load<Texture2D>("spriteExitButton"));
 			SpriteInstructions = new Sprite(batch, content.Load<Texture2D>("spriteInstructions"));
 			SpriteCredits = new Sprite(batch, content.Load<Texture2D>("spriteCredits"));
+
 			BackgroundTitleScreen = new Sprite(batch, content.Load<Texture2D>("titleScreenBackground"));
 			BackgroundPark = new Sprite(batch, content.Load<Texture2D>("parkBackground"));
+			BackgroundParkCloudy = new Sprite(batch, content.Load<Texture2D>("parkCloudyBackground"));
 
 			FontTest = content.Load<SpriteFont>("testFont");
 

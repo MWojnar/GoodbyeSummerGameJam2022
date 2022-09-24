@@ -16,6 +16,7 @@ namespace GoodbyeSummerGameJam
 		private List<Pallete> palletes;
 		private StateHandler stateHandler;
 		private Matrix viewScaleMatrix;
+		private Background background;
 		private int targetFrameRate, viewScale, currentViewScale;
 
 		public AssetManager Assets;
@@ -33,6 +34,7 @@ namespace GoodbyeSummerGameJam
 			viewScale = 5;
 			currentViewScale = 5;
 			viewScaleMatrix = Matrix.CreateScale(viewScale, viewScale, 1);
+			background = null;
 			palletes = new List<Pallete>() { new Pallete(new Dictionary<Color, int>() { { new Color(31, 104, 39), 1 }, { new Color(39, 128, 31), 1 }, { new Color(59, 148, 31), 1 } }),
 			new Pallete(new Dictionary<Color, int>() { { new Color(101, 154, 40), 1 }, { new Color(92, 196, 26), 1 }, { new Color(140, 193, 45), 1 } }),
 			new Pallete(new Dictionary<Color, int>() { { new Color(128, 84, 17), 1 }, { new Color(151, 122, 28), 1 }, { new Color(166, 153, 22), 1 } }),
@@ -41,6 +43,11 @@ namespace GoodbyeSummerGameJam
 			new Pallete(new Dictionary<Color, int>() { { new Color(110, 18, 116), 1 }, { new Color(145, 31, 112), 1 }, { new Color(196, 48, 107), 1 } }),
 			new Pallete(new Dictionary<Color, int>() { { new Color(31, 47, 128), 1 }, { new Color(151, 36, 23), 1 }, { new Color(31, 104, 39), 1 } }),
 			new Pallete(new Dictionary<Color, int>() { { new Color(196, 48, 107), 1 }, { new Color(36, 134, 163), 1 }, { new Color(92, 196, 26), 1 } }), };
+		}
+
+		internal void setCloudiness(double cloudiness)
+		{
+			background.setTransitionAmount((float)cloudiness / 100);
 		}
 
 		protected override void Initialize()
@@ -117,9 +124,12 @@ namespace GoodbyeSummerGameJam
 					AddEntity(new Bush(this, new Vector2(140, 125)));
 					AddEntity(new Bush(this, new Vector2(150, 190)));
 					AddEntity(new Bush(this, new Vector2(290, 187)));
-					AddEntity(new Cloud(this, new Vector2(40, 30), depth: .44f));
-					AddEntity(new Sun(this, new Vector2(GetDimensions().X - 30, 30), depth: .45f));
-					AddEntity(new Entity(this, GetDimensions() / 2, Assets.BackgroundPark, .75f));
+					Sun sun = new Sun(this, new Vector2(GetDimensions().X - 30, 30), depth: .45f);
+					AddEntity(sun);
+					AddEntity(new Cloud(this, sun, new Vector2(40, 30), depth: .44f));
+					AddEntity(new Entity(this, GetDimensions() / 2, Assets.BackgroundPark, 1));
+					background = new Background(this, GetDimensions() / 2);
+					AddEntity(background);
 					Vector2 fountainPos = GetDimensions() / 2 + new Vector2(70, 12);
 					AddEntity(new Entity(this, fountainPos, Assets.SpriteFountain, .5f - (fountainPos.Y + Assets.SpriteFountain.getHeight() / 2) / 1000000f));
 					break;
