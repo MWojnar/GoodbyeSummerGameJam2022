@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Extended;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -249,7 +250,7 @@ namespace GoodbyeSummerGameJam
 								animationTimer += time.ElapsedGameTime.TotalSeconds;
 								int currentFrame = (int)(animationTimer * getAnimationFrameRate());
 								Vector2 windPos = getPos() - new Vector2(26 - (getFlipped() ? 52 : 0), 6 - currentFrame % 2);
-								world.AddEntity(new Particle(world, windPos, world.Assets.SpriteWind, flipped: getFlipped()));
+								world.AddEntity(new Particle(world, windPos, world.Assets.SpriteWind, 0.1f, flipped: getFlipped()));
 							}
 						}
 						else
@@ -267,6 +268,11 @@ namespace GoodbyeSummerGameJam
 					mouseDown = true;
 				else if (mouseDown)
 					world.LoadLevel(0);
+			}
+			if (rand.NextDouble() < (temperature / 31.0f) * (1.0f / 60.0f))
+			{
+				Vector2 windPos = new Vector2((float)rand.NextDouble() * world.GetDimensions().X, (float)rand.NextDouble() * world.GetDimensions().Y);
+				world.AddEntity(new Particle(world, windPos, world.Assets.SpriteWind, 0.1f));
 			}
 		}
 
@@ -349,9 +355,13 @@ namespace GoodbyeSummerGameJam
 			else
 			{
 				string text = "Autumn is here!  Great job!";
-				batch.DrawString(world.Assets.FontTest, text, new Vector2(world.GetDimensions().X / 2 - world.Assets.FontTest.MeasureString(text).X / 2, world.Assets.FontTest.MeasureString(text).Y), Color.Red);
+				RectangleF boundingRect = new RectangleF(new Vector2(world.GetDimensions().X / 2 - world.Assets.FontTest.MeasureString(text).X / 2, world.Assets.FontTest.MeasureString(text).Y), new Size2(world.Assets.FontTest.MeasureString(text).X, world.Assets.FontTest.MeasureString(text).Y));
+				batch.FillRectangle(boundingRect, Color.Black * .5f, 0.1f);
+				batch.DrawString(world.Assets.FontTest, text, new Vector2(world.GetDimensions().X / 2 - world.Assets.FontTest.MeasureString(text).X / 2, world.Assets.FontTest.MeasureString(text).Y), Color.DarkOrange);
 				text = "Click anywhere to continue";
-				batch.DrawString(world.Assets.FontTest, text, new Vector2(world.GetDimensions().X / 2 - world.Assets.FontTest.MeasureString(text).X / 2, world.GetDimensions().Y / 2 - world.Assets.FontTest.MeasureString(text).Y / 2), Color.Red);
+				boundingRect = new RectangleF(new Vector2(world.GetDimensions().X / 2 - world.Assets.FontTest.MeasureString(text).X / 2, world.GetDimensions().Y / 2 - world.Assets.FontTest.MeasureString(text).Y / 2), new Size2(world.Assets.FontTest.MeasureString(text).X, world.Assets.FontTest.MeasureString(text).Y));
+				batch.FillRectangle(boundingRect, Color.Black * .5f, 0.1f);
+				batch.DrawString(world.Assets.FontTest, text, new Vector2(world.GetDimensions().X / 2 - world.Assets.FontTest.MeasureString(text).X / 2, world.GetDimensions().Y / 2 - world.Assets.FontTest.MeasureString(text).Y / 2), Color.DarkOrange);
 			}
 		}
 
